@@ -1,4 +1,5 @@
 {% extends 'todoApp/base.html' %}
+{% load socialaccount %}
 {% block content %}
 
 Sign up once again!
@@ -9,5 +10,5 @@ Sign up once again!
 {{ form.as_p }}
 <button type="submit">Sign Up</button>
 </form>
-
+<a href="{% provider_login_url 'google' %}?next=/">Continue with Google</a>
 {% endblock %}

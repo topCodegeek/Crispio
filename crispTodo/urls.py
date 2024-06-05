@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from crispApp import views
 
 urlpatterns = [
@@ -25,7 +25,8 @@ urlpatterns = [
     path('signup/', views.signupuser, name='signupuser'),
     path('login/', views.loginuser, name='loginuser'),
     path('logout/', views.logoutuser, name='logoutuser'),
-    
+    path('accounts/', include('allauth.urls')),
+
     #Todo
     path('', views.homepage, name="homepage"),
     path('current/', views.currenttodos, name="currenttodos"),
