@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
 
-Logged in as {{ user.username }}
+Logged in as {{ user.first_name }}
 <br>
 <form method="POST" action="{% url 'logoutuser' %}">
 {% csrf_token %}
