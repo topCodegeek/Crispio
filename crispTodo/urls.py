@@ -17,15 +17,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from crispApp import views
+from allauth.account.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #Allauth-Extra
+    path('accounts/login/', views.currenttodos, name="currenttodos"),
+    path('accounts/logout/', views.currenttodos, name="currenttodos"),
+    path('accounts/password/change/', views.currenttodos, name="currenttodos"),
+    path('accounts/password/set/', views.currenttodos, name="currenttodos"),
+    path('accounts/password/reset/', views.currenttodos, name="currenttodos"),
+    path('accounts/password/reset/done/', views.currenttodos, name="currenttodos"),
+    path('accounts/password/reset/key/', views.currenttodos, name="currenttodos"),
+    path('accounts/inactive/',views.currenttodos, name="currenttodos"),
+    path('accounts/email/', views.currenttodos, name="currenttodos"),
+    path('accounts/confirm-email/', views.currenttodos, name="currenttodos"),
+    path('accounts/signup/', views.currenttodos, name="currenttodos"),
+    path('accounts/signup/closed/', views.currenttodos, name="currenttodos"),
 
     #Auth
     path('signup/', views.signupuser, name='signupuser'),
     path('login/', views.loginuser, name='loginuser'),
     path('logout/', views.logoutuser, name='logoutuser'),
     path('accounts/', include('allauth.urls')),
+    
+    path('forget/', views.forgetpassword, name='forgetpassword'),
 
     #Todo
     path('', views.homepage, name="homepage"),

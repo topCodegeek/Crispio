@@ -72,28 +72,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     
 ]
-'''
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '148076801523-qar8u5qupaevsqn1h3mk41eogn8lv2qr.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': True,
-    }
-}
-'''
+
 ROOT_URLCONF = 'crispTodo.urls'
 
 TEMPLATES = [

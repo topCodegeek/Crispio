@@ -7,8 +7,13 @@ Sign up once again!
 {{ error }}
 <form method="POST">
 {% csrf_token %}
-{{ form.as_p }}
+<P>Username: {{ form.username }}</P>
+<p>First Name: {{ form.first_name }}</p>
+<p>Last Name: {{ form.last_name }}</p>
+<p>Email: {{ form.email }}</p>
+<p>Password: {{ form.password1 }}</p>
+<p>Confirm Password: {{ form.password2 }}</p>
 <button type="submit">Sign Up</button>
 </form>
-<a href="{% provider_login_url 'google' %}?next=/">Continue with Google</a>
+<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a>
 {% endblock %}
