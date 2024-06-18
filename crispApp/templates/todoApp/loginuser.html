@@ -7,11 +7,12 @@ Hey, log back in!
 {{ error }}
 <form method="POST">
 {% csrf_token %}
-{{ form.as_p }}
-<p>
+<p>Email: {{ form.username }}</p>
+<p>Password: {{ form.password }}</p>
     <a href="{% url 'forgetpassword' %}">Forgot your password?</a>
 </p>
 <button type="submit">Login</button>
 </form>
-<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a>
+<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a><br>
+<a href="{% provider_login_url 'github' %}?next=/current/">Continue with Github</a>
 {% endblock %}

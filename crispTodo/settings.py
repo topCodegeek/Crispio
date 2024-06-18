@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Optional -- requires install using `django-allauth[socialaccount]`.
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 
 ]
 SOCIALACCOUNT_PROVIDERS= {
@@ -150,8 +151,6 @@ AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     #'django.contrib.auth.backends.ModelBackend',
     #Email Login
-    'crispApp.auth_backends.EmailBackend'
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
-SOCIALACCOUNT_LOGIN_ON_GET=True
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True

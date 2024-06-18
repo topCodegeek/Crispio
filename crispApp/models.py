@@ -6,7 +6,7 @@ from django.dispatch import receiver
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(unique=True, db_index=True, null=True)
+    email = models.EmailField(unique=True, db_index=True)
     profile_picture = models.ImageField(upload_to = "media/crispApp/images/", null=True)
     pfp_url = models.URLField(blank=True, null=True)  # Store the profile picture URL
     instructing = models.ManyToManyField(User, related_name='instructing')
@@ -14,8 +14,3 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)

@@ -14,5 +14,6 @@ Sign up once again!
 <p>Confirm Password: {{ form.password2 }}</p>
 <button type="submit">Sign Up</button>
 </form>
-<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a>
+<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a><br>
+<a href="{% provider_login_url 'github' %}?next=/current/">Continue with Github</a>
 {% endblock %}
