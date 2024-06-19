@@ -22,17 +22,11 @@ from allauth.account.views import LoginView, LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-
-
-
     #Auth
-    path('signup/', views.signupuser, name='signupuser'),
-    path('login/', views.loginuser, name='loginuser'),
+    path('connect/', views.connect, name='connect'),
     path('logout/', views.logoutuser, name='logoutuser'),
     path('accounts/', include('allauth.urls')),
     
-    path('forget/', views.forgetpassword, name='forgetpassword'),
-
     #Todo
     path('', views.homepage, name="homepage"),
     path('current/', views.currenttodos, name="currenttodos"),

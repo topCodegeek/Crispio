@@ -9,8 +9,7 @@ Logged in as {{ user.first_name }}
 
 {% else %}
 
-<a href="{% url 'loginuser' %}">Login</a>
-<a href="{% url 'signupuser' %}">Sign Up</a>
+<a href="{% url 'connect' %}">Sign Up</a>
 <br><br>
 
 {% endif %}
