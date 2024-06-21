@@ -4,5 +4,20 @@
 {{ error }}
 <br>
 These are your todos
-
+<ul>
+     {% for todo in todos %}
+     <li>
+               <a href="{% url 'edittodo' todo.id %}">
+               {% if todo.important %}
+               <b>
+               {% endif %}
+               {{ todo.title }}
+               </b>
+               {% if todo.memo %}
+               ~{{todo.memo}}
+               {% endif %}
+          </a>
+     </li>
+     {% endfor %}
+</ul>
 {% endblock %}

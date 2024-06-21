@@ -30,4 +30,6 @@ urlpatterns = [
     #Todo
     path('', views.homepage, name="homepage"),
     path('current/', views.currenttodos, name="currenttodos"),
+    path('create/', views.createtodos, name="createtodos"),
+    path('todo/edit/<int:todo_id>', views.edittodo, name="edittodo"),
 ]
