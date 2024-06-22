@@ -1,16 +1,29 @@
+<!-- Removing Link Underline -->
+<style>
+     a {
+          text-decoration: none;
+     }
+</style>
+
+<!-- Content -->
 {% if user.is_authenticated %}
 
 Logged in as {{ user.first_name }}
 <br>
+
+<!-- Logout -->
 <form method="POST" action="{% url 'logoutuser' %}">
 {% csrf_token %}
 <button type="SUBMIT">Logout</button>
 </form>
-
+<a href="{% url 'currenttodos' %}">Current</a><br>
+<a href="{% url 'createtodos' %}">Create</a><br>
+<a href="{% url 'completedtodos' %}">Completed</a><br>
+<br>
 {% else %}
 
-<a href="{% url 'connect' %}">Sign Up</a>
-<br><br>
+<a href="{% url 'connect' %}">Join</a>
+<br>
 
 {% endif %}
 

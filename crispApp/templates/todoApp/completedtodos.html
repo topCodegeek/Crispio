@@ -1,9 +1,7 @@
 {% extends 'todoApp/base.html' %}
-
 {% block content %}
-{{ error }}
-<br>
-<h1>These are your todos</h1>
+
+<h1>Completed Todos:</h1>
 <ul>
      {% for todo in todos %}
      <li>
@@ -16,8 +14,10 @@
                {% if todo.memo %}
                ~{{todo.memo}}
                {% endif %}
+               ~Completed on {{ todo.date_completed|date:'dS M Y H:i' }}
           </a>
      </li>
      {% endfor %}
 </ul>
+
 {% endblock %}

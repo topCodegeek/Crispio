@@ -1,7 +1,7 @@
 {% extends 'todoApp/base.html' %}
 {% block content %}
 {{ error }}
-<h4>{{ todo.title }}</h4>
+<h1>{{ todo.title }}</h1>
 <form method="POST">
      {% csrf_token %}
      {{ form.as_p }}
@@ -9,5 +9,14 @@
      Save
 </button>
 </form>
-
+{% if todo.date_completed.isnull %}
+     <form method="POST" action="{% url 'completetodo' todo.id %}">
+          {% csrf_token %}
+     <button type="submit">Complete</button>
+     </form>
+{% endif %}
+<form method="POST" action="{% url 'deletetodo' todo.id %}">
+     {% csrf_token %}
+     <button type="submit">Delete</button>
+</form>
 {% endblock %}

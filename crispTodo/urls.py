@@ -27,9 +27,13 @@ urlpatterns = [
     path('logout/', views.logoutuser, name='logoutuser'),
     path('accounts/', include('allauth.urls')),
     
-    #Todo
+    #Todo - View
     path('', views.homepage, name="homepage"),
-    path('current/', views.currenttodos, name="currenttodos"),
-    path('create/', views.createtodos, name="createtodos"),
+    path('todos/current/', views.currenttodos, name="currenttodos"),
+    path('todos/completed/', views.completedtodos, name="completedtodos"),
+    #todo - Action
+    path('todo/create/', views.createtodos, name="createtodos"),
     path('todo/edit/<int:todo_id>', views.edittodo, name="edittodo"),
+    path('todo/complete/<int:todo_id>', views.completetodo, name="completetodo"),
+    path('todo/delete/<int:todo_id>', views.deletetodo, name="deletetodo"),
 ]
