@@ -13,6 +13,9 @@ def homepage(request):
 def connect(request):
     return render (request, 'todoApp/connect.html')
 
+def currentredirect(request):
+    return redirect('currenttodos')
+
 @login_required
 def logoutuser(request): #login required
     if request.method == "POST":
@@ -37,7 +40,7 @@ def createtodos(request):
 
 @login_required
 def currenttodos(request):
-    todos = Todo.objects.filter(author=request.user, date_completed__isnull=True)
+    todos = Todo.objects.filter(author=request.user, date_completed__isnull=True).order_by('-created')
     return render (request, 'todoApp/currenttodos.html', {'todos':todos})
 
 @login_required

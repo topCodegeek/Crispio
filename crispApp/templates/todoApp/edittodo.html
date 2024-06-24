@@ -9,7 +9,7 @@
      Save
 </button>
 </form>
-{% if todo.date_completed.isnull %}
+{% if todo.date_completed is None %}
      <form method="POST" action="{% url 'completetodo' todo.id %}">
           {% csrf_token %}
      <button type="submit">Complete</button>

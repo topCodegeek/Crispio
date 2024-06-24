@@ -2,6 +2,6 @@
 {% load socialaccount %}
 
 {% block content %}
-<a href="{% provider_login_url 'google' %}?next=/current/">Continue with Google</a><br>
-<a href="{% provider_login_url 'github' %}?next=/current/">Continue with Github</a><br>
+<a href="{% provider_login_url 'google' %}?next=/todos/current/">Continue with Google</a><br>
+<a href="{% provider_login_url 'github' %}?next=/todos/current/">Continue with Github</a><br>
 {% endblock %}

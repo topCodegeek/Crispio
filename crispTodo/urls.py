@@ -22,6 +22,19 @@ from allauth.account.views import LoginView, LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    #Allauth - Unnecessary
+    path('accounts/signup/', views.currentredirect, name="currentredirect"),
+    path('accounts/login/', views.currentredirect, name="currentredirect"),
+    path('accounts/logout/', views.currentredirect, name="currentredirect"),
+    path('accounts/confirm-email/', views.currentredirect, name="currentredirect"),
+    path('accounts/password/reset/', views.currentredirect, name="currentredirect"),
+    path('accounts/password/reset/done/', views.currentredirect, name="currentredirect"),
+    path('accounts/password/reset/complete/', views.currentredirect, name="currentredirect"),
+    path('accounts/password/change/', views.currentredirect, name="currentredirect"),
+    path('accounts/password/change/done/', views.currentredirect, name="currentredirect"),
+    path('accounts/inactive/', views.currentredirect, name="currentredirect"),
+    path('accounts/profile/', views.currentredirect, name="currentredirect"),
+
     #Auth
     path('connect/', views.connect, name='connect'),
     path('logout/', views.logoutuser, name='logoutuser'),
