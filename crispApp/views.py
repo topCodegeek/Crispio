@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404
+from userProfile.models import UserProfile
 from django.utils import timezone
 from .forms import TodoForm
 from .models import Todo
@@ -22,7 +23,7 @@ def logoutuser(request): #login required
         logout(request)
         return redirect ('homepage')
     else:
-        return render (request, 'todoApp/currenttodos.html', {'error':'Bad logout method.'})     
+        return render (request, 'todoApp/currenttodos.html', {'error':'Strange logout request.'})     
 
 @login_required
 def createtodos(request):
@@ -41,7 +42,7 @@ def createtodos(request):
 @login_required
 def currenttodos(request):
     todos = Todo.objects.filter(author=request.user, date_completed__isnull=True).order_by('-created')
-    return render (request, 'todoApp/currenttodos.html', {'todos':todos})
+    return render (request, 'todoApp/currenttodos.html', {'todos':todos,})
 
 @login_required
 def edittodo(request, todo_id):

@@ -21,6 +21,7 @@ from allauth.account.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('userprofile/', include('userProfile.urls')),
 
     #Allauth - Unnecessary
     path('accounts/signup/', views.currentredirect, name="currentredirect"),
