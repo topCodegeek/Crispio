@@ -14,6 +14,7 @@ Logged in as {{ user.first_name }}
 {% csrf_token %}
 <button type="SUBMIT">Logout</button>
 </form>
+<a href="{% url 'userProfile:viewself' %}">You</a><br>
 <a href="{% url 'currenttodos' %}">Current</a><br>
 <a href="{% url 'createtodos' %}">Create</a><br>
 <a href="{% url 'completedtodos' %}">Completed</a><br>

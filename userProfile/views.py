@@ -30,3 +30,8 @@ def createprofile(request):
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
      return render (request, 'userProfile/viewprofile.html', {'profile':profile})
+
+@login_required
+def viewself(request):
+     profile = get_object_or_404(UserProfile, user=request.user)
+     return render (request, 'userProfile/viewself.html', {'profile':profile})

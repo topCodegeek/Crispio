@@ -1,17 +1,22 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate
 from django.shortcuts import get_object_or_404
 from userProfile.models import UserProfile
 from django.utils import timezone
 from .forms import TodoForm
 from .models import Todo
+from functools import wraps
 # Create your views here.
 
-def homepage(request):
+def homepage(request):  #New User Required
+    if request.user.is_authenticated:
+        return redirect('currenttodos')
     return render (request, 'todoApp/homepage.html')
 
-def connect(request):
+def connect(request):   #New User Required
+    if request.user.is_authenticated:
+        return redirect('currenttodos')
     return render (request, 'todoApp/connect.html')
 
 def currentredirect(request):
