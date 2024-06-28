@@ -8,4 +8,6 @@ urlpatterns = [
      path('create/',views.createprofile, name='createprofile'),
      path('view/<int:profile_id>', views.viewprofile, name='viewprofile'),
      path('view/self/', views.viewself, name='viewself'),
+     path('follow/<int:profile_id>', views.follow, name='follow'),
+     path('unfollow/<int:profile_id>', views.unfollow, name='unfollow'),
 ]

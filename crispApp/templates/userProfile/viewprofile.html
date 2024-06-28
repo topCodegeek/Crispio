@@ -4,4 +4,21 @@
 <img src="{{ profile.pfp_url }}">
 <h1>{{ profile.user.first_name }}</h1>
 
+{% if followed %}
+<form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
+     {% csrf_token %}
+<button type="submit">Unfollow</button>
+
+{% else %}
+     {% if self %}
+     <!-- Self -->
+
+     {% else %}
+          <form method="POST" action="{% url 'userProfile:follow' profile.id %}">
+               {% csrf_token %}
+          <button type="submit">Follow</button>
+          </form>
+     {% endif %}
+{% endif %}
+
 {% endblock %}

@@ -29,9 +29,56 @@ def createprofile(request):
 
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
-     return render (request, 'userProfile/viewprofile.html', {'profile':profile})
+     if request.user in profile.instructing.all():
+          followed = True
+          self=False
+     elif request.user==profile.user:
+          followed = False
+          self=True
+     else:
+          followed = False
+          self = False
+     return render (request, 'userProfile/viewprofile.html', {'profile':profile,'followed':followed,'self':self})
 
 @login_required
 def viewself(request):
      profile = get_object_or_404(UserProfile, user=request.user)
      return render (request, 'userProfile/viewself.html', {'profile':profile})
+
+@login_required
+def  follow(request, profile_id):
+     if request.method=='POST':
+          to_follow = get_object_or_404(UserProfile, pk=profile_id)
+          to_follow.instructing.add(request.user)
+          request_profile = get_object_or_404(UserProfile, user=request.user)
+          request_profile.following.add(to_follow.user)
+
+          if request.user in to_follow.instructing.all():
+               followed = True
+               self=False
+          elif request.user==to_follow.user:
+               followed = False
+               self=True
+          else:
+               followed = False
+               self = False
+          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self})
+
+@login_required
+def  unfollow(request, profile_id):
+     if request.method=='POST':
+          to_follow = get_object_or_404(UserProfile, pk=profile_id)
+          to_follow.instructing.remove(request.user)
+          request_profile = get_object_or_404(UserProfile, user=request.user)
+          request_profile.following.remove(to_follow.user)
+
+          if request.user in to_follow.instructing.all():
+               followed = True
+               self=False
+          elif request.user==to_follow.user:
+               followed = False
+               self=True
+          else:
+               followed = False
+               self = False
+          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self})          
