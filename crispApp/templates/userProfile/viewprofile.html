@@ -3,6 +3,8 @@
 
 <img src="{{ profile.pfp_url }}">
 <h1>{{ profile.user.first_name }}</h1>
+<a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
+<a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 
 {% if followed %}
 <form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
@@ -19,6 +21,6 @@
           <button type="submit">Follow</button>
           </form>
      {% endif %}
-{% endif %}
+{% endif %}<br>
 
 {% endblock %}

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-n*t%=r1=@0p%0u=-9&kvsqggmf-)wlrjgm&&&dex-s9i4n)d=a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['58c1-117-195-7-7.ngrok-free.app','localhost']
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.twitter_oauth2',
 
 ]
 SOCIALACCOUNT_PROVIDERS= {

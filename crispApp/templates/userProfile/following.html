@@ -1,0 +1,16 @@
+{% extends 'todoApp/base.html' %}
+{% block content %}
+
+{{ profile.user.first_name }} is following {{ count }} user{{ count|pluralize }}.
+<br>
+<ul>
+     {% for followinguser in following %}
+          <a href="{% url 'userProfile:viewprofile' followinguser.id %}">
+          <li>
+          {{ followinguser.user.first_name }}
+          </li>
+          </a>
+     {% endfor %}
+</ul>
+
+{% endblock %}

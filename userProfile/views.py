@@ -29,7 +29,10 @@ def createprofile(request):
 
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
-     if request.user in profile.instructing.all():
+     request_profile = get_object_or_404(UserProfile, user=request.user)
+     instructing = profile.instructing.all().count()
+     following = profile.following.all().count()
+     if request_profile in profile.instructing.all():
           followed = True
           self=False
      elif request.user==profile.user:
@@ -38,22 +41,38 @@ def viewprofile(request, profile_id):
      else:
           followed = False
           self = False
-     return render (request, 'userProfile/viewprofile.html', {'profile':profile,'followed':followed,'self':self})
+     return render (request, 'userProfile/viewprofile.html', {'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following})
+
+def instructing(request, profile_id):
+     profile = get_object_or_404(UserProfile, pk=profile_id)
+     instructing = profile.instructing.all()
+     instructing_count = instructing.count()
+     return render (request, 'userProfile/instructing.html', {'profile':profile, 'instructing':instructing, 'count':instructing_count})
+
+def following(request, profile_id):
+     profile = get_object_or_404(UserProfile, pk=profile_id)
+     following = profile.following.all()
+     following_count = following.count()
+     return render (request, 'userProfile/following.html', {'profile':profile, 'following':following, 'count':following_count})
 
 @login_required
 def viewself(request):
      profile = get_object_or_404(UserProfile, user=request.user)
-     return render (request, 'userProfile/viewself.html', {'profile':profile})
+     instructing = profile.instructing.all().count()
+     following = profile.following.all().count()
+     return render (request, 'userProfile/viewself.html', {'profile':profile, 'following':following,'instructing':instructing})
 
 @login_required
 def  follow(request, profile_id):
      if request.method=='POST':
           to_follow = get_object_or_404(UserProfile, pk=profile_id)
-          to_follow.instructing.add(request.user)
           request_profile = get_object_or_404(UserProfile, user=request.user)
-          request_profile.following.add(to_follow.user)
+          to_follow.instructing.add(request_profile)
+          request_profile.following.add(to_follow)
+          instructing = to_follow.instructing.all().count()
+          following = to_follow.following.all().count()
 
-          if request.user in to_follow.instructing.all():
+          if request_profile in to_follow.instructing.all():
                followed = True
                self=False
           elif request.user==to_follow.user:
@@ -62,17 +81,19 @@ def  follow(request, profile_id):
           else:
                followed = False
                self = False
-          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self})
+          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self, 'following':following, 'instructing':instructing})
 
 @login_required
 def  unfollow(request, profile_id):
      if request.method=='POST':
           to_follow = get_object_or_404(UserProfile, pk=profile_id)
-          to_follow.instructing.remove(request.user)
           request_profile = get_object_or_404(UserProfile, user=request.user)
-          request_profile.following.remove(to_follow.user)
+          to_follow.instructing.remove(request_profile)
+          request_profile.following.remove(to_follow)
+          instructing = to_follow.instructing.all().count()
+          following = to_follow.following.all().count()
 
-          if request.user in to_follow.instructing.all():
+          if request_profile in to_follow.instructing.all():
                followed = True
                self=False
           elif request.user==to_follow.user:
@@ -81,4 +102,4 @@ def  unfollow(request, profile_id):
           else:
                followed = False
                self = False
-          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self})          
+          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self,'following':following, 'instructing':instructing})          

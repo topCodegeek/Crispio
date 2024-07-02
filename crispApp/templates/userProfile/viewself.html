@@ -3,6 +3,8 @@
 
 <img src="{{ profile.pfp_url }}">
 <h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+<a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
+<a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 <a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
 
 {% endblock %}
