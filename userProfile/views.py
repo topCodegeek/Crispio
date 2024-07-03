@@ -27,9 +27,15 @@ def createprofile(request):
      
      return redirect('currenttodos')
 
+@login_required
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
-     request_profile = get_object_or_404(UserProfile, user=request.user)
+     try:
+          request_profile = get_object_or_404(UserProfile, user=request.user)
+     except:
+          request_profile = None
+          self = False
+          followed = False
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
      if request_profile in profile.instructing.all():
@@ -43,12 +49,14 @@ def viewprofile(request, profile_id):
           self = False
      return render (request, 'userProfile/viewprofile.html', {'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following})
 
+@login_required
 def instructing(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
      instructing = profile.instructing.all()
      instructing_count = instructing.count()
      return render (request, 'userProfile/instructing.html', {'profile':profile, 'instructing':instructing, 'count':instructing_count})
 
+@login_required
 def following(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
      following = profile.following.all()

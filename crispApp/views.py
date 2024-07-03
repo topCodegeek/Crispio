@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from userProfile.models import UserProfile
 from django.utils import timezone
 from .forms import TodoForm
-from .models import Todo
+from .models import Todo, Submission
 from functools import wraps
 # Create your views here.
 
@@ -40,13 +40,16 @@ def createtodos(request):
             newtodo = form.save(commit=False)
             newtodo.author = request.user
             newtodo.save()
+            profile = UserProfile.objects.get(user=request.user)
+            submission = Submission.objects.create(todo=newtodo, submitter=profile)
+            submission.save()
             return redirect('currenttodos')
         except ValueError:
             return render (request, 'todoApp/createtodos.html', {'form':TodoForm, 'error':'Bad data passed in, please try again.'})  
 
 @login_required
 def currenttodos(request):
-    todos = Todo.objects.filter(author=request.user, date_completed__isnull=True).order_by('-created')
+    todos = Todo.objects.filter(author=request.user, submitters=None).order_by('-created')
     return render (request, 'todoApp/currenttodos.html', {'todos':todos,})
 
 @login_required
@@ -67,9 +70,13 @@ def edittodo(request, todo_id):
 @login_required
 def completetodo(request, todo_id):
     todo = get_object_or_404(Todo, pk=todo_id, author=request.user)
+    profile = UserProfile.objects.get(user=request.user)
+    submission = Submission.objects.get(todo=todo, submitter=profile)
     if request.method=='POST':
         todo.date_completed = timezone.now()
         todo.save()
+        submission.date_submitted = timezone.now()
+        submission.save()
         return redirect('currenttodos')
     else:
         form = TodoForm(instance=todo)
