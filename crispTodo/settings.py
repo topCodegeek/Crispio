@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-n*t%=r1=@0p%0u=-9&kvsqggmf-)wlrjgm&&&dex-s9i4n)d=a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['58c1-117-195-7-7.ngrok-free.app','localhost']
-
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -56,7 +55,6 @@ SOCIALACCOUNT_PROVIDERS= {
         # listed here:
         "SCOPE": [
             "profile",
-            "email",
         ],
         "AUTH_PARAMS": {
             "access_type": "online",
