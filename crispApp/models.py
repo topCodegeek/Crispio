@@ -11,14 +11,13 @@ class Todo(models.Model):
     memo = models.TextField(blank=True)
     visibility_choices = [
         ('Private', 'Private - Only you can view'),
-        ('Exclusive', 'Exclusive - Shared with your followers'),
-        ('Public', 'Public - Anyone can view'),
+        ('Exclusive', 'Exclusive - Sent to your followers'),
+        ('Public', 'Public - Displayed on your profile'),
     ]
     visibility = models.CharField(max_length=9, choices=visibility_choices, default='Private')
     created = models.DateTimeField(auto_now_add=True)
-    date_completed = models.DateTimeField(null=True, blank=True)
     important = models.BooleanField(default=False)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='author')
     submitters = models.ManyToManyField(UserProfile, through='Submission')
 
     def __str__(self):

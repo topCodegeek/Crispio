@@ -1,0 +1,37 @@
+{% extends 'todoApp/base.html' %}
+{% block content %}
+{{ error }}
+<h1>{{ todo.title }}</h1>
+<h6>Author: <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author }}</a></h6>
+
+{{ todo.memo }}
+
+{% if important %}
+     <b>
+     {{ todo.important }}
+     </b>
+{% endif %}
+{% if self %}
+     <form method="GET" action="{% url 'edittodo' todo.id %}">
+          {% csrf_token %}
+     <button type="submit">Edit</button>
+     </form>
+{% endif %}
+{% if todo.date_completed is None %}
+     <form method="POST" action="{% url 'completetodo' todo.id %}">
+          {% csrf_token %}
+     <button type="submit">Complete</button>
+     </form>
+{% endif %}
+<hr>
+<h1>Completed by {{ count }} user{{ count|pluralize }}.</h1>
+<ul>
+{% for submission in submissions %}
+<li>
+     <b><a href="{% url 'userProfile:viewprofile' submission.submitter.id %}">{{ submission.submitter.user.first_name }} {{ submission.submitter.user.last_name }}</a></b>
+     On {{ submission.date_submitted|date:'dS M Y H:i' }}
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

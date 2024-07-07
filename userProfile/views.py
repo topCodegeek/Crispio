@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from crispApp import views
 from .models import UserProfile
+from crispApp.models import Todo, Submission
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from allauth.socialaccount.models import SocialAccount
@@ -30,12 +31,9 @@ def createprofile(request):
 @login_required
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
-     try:
-          request_profile = get_object_or_404(UserProfile, user=request.user)
-     except:
-          request_profile = None
-          self = False
-          followed = False
+     request_profile = UserProfile.objects.get(user=request.user)  # Assuming you have a one-to-one relation with UserProfile
+     todos = Todo.objects.exclude(id__in=Submission.objects.filter(submitter=request_profile).values('todo_id')).filter(visibility='Public', author=profile)
+     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
      if request_profile in profile.instructing.all():
@@ -47,7 +45,8 @@ def viewprofile(request, profile_id):
      else:
           followed = False
           self = False
-     return render (request, 'userProfile/viewprofile.html', {'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following})
+     context = {'exclusive':exclusive, 'todos': todos, 'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following}
+     return render (request, 'userProfile/viewprofile.html', context)
 
 @login_required
 def instructing(request, profile_id):
@@ -66,9 +65,12 @@ def following(request, profile_id):
 @login_required
 def viewself(request):
      profile = get_object_or_404(UserProfile, user=request.user)
+     todos = Todo.objects.filter(author=profile, visibility='Public')
+     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive')
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
-     return render (request, 'userProfile/viewself.html', {'profile':profile, 'following':following,'instructing':instructing})
+     context = {'profile':profile, 'following':following,'instructing':instructing, 'todos':todos, 'exclusive':exclusive}
+     return render (request, 'userProfile/viewself.html', context)
 
 @login_required
 def  follow(request, profile_id):
@@ -77,19 +79,7 @@ def  follow(request, profile_id):
           request_profile = get_object_or_404(UserProfile, user=request.user)
           to_follow.instructing.add(request_profile)
           request_profile.following.add(to_follow)
-          instructing = to_follow.instructing.all().count()
-          following = to_follow.following.all().count()
-
-          if request_profile in to_follow.instructing.all():
-               followed = True
-               self=False
-          elif request.user==to_follow.user:
-               followed = False
-               self=True
-          else:
-               followed = False
-               self = False
-          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self, 'following':following, 'instructing':instructing})
+          return redirect('userProfile:viewprofile', profile_id)
 
 @login_required
 def  unfollow(request, profile_id):
@@ -98,16 +88,4 @@ def  unfollow(request, profile_id):
           request_profile = get_object_or_404(UserProfile, user=request.user)
           to_follow.instructing.remove(request_profile)
           request_profile.following.remove(to_follow)
-          instructing = to_follow.instructing.all().count()
-          following = to_follow.following.all().count()
-
-          if request_profile in to_follow.instructing.all():
-               followed = True
-               self=False
-          elif request.user==to_follow.user:
-               followed = False
-               self=True
-          else:
-               followed = False
-               self = False
-          return render (request, 'userProfile/viewprofile.html', {'profile':to_follow, 'followed':followed,'self':self,'following':following, 'instructing':instructing})          
+          return redirect('userProfile:viewprofile', profile_id)

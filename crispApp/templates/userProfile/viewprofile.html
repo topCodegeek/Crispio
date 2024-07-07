@@ -2,7 +2,7 @@
 {% block content %}
 
 <img src="{{ profile.pfp_url }}">
-<h1>{{ profile.user.first_name }}</h1>
+<h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
 <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
 <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 
@@ -20,7 +20,45 @@
                {% csrf_token %}
           <button type="submit">Follow</button>
           </form>
+          Follow {{ profile.user.first_name }} to get access to exclusive todos.
      {% endif %}
 {% endif %}<br>
 
+{% if followed %}
+<h1>For you</h1>
+<ul>
+     {% for todo in exclusive %}
+          <a href="{% url 'viewtodo' todo.id %}">
+               <li>
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+               </li>
+          </a>
+     {% endfor %}
+</ul>
+{% else %}
+<h1>Todos by {{ profile.user.first_name }}.</h1>
+<ul>
+     {% for todo in todos %}
+          <a href="{% url 'viewtodo' todo.id %}">
+               <li>
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+               </li>
+          </a>
+     {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

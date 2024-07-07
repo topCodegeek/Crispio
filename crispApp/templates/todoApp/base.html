@@ -16,6 +16,7 @@ Logged in as {{ user.first_name }}
 </form>
 <a href="{% url 'userProfile:viewself' %}">You</a><br>
 <a href="{% url 'currenttodos' %}">Current</a><br>
+<a href="{% url 'publictodos' 'following' %}">Following</a><br>
 <a href="{% url 'createtodos' %}">Create</a><br>
 <a href="{% url 'completedtodos' %}">Completed</a><br>
 <br>

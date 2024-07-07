@@ -3,18 +3,18 @@
 
 <h1>Completed Todos:</h1>
 <ul>
-     {% for todo in todos %}
+     {% for submission in submissions %}
      <li>
-               <a href="{% url 'edittodo' todo.id %}">
-               {% if todo.important %}
+               <a href="{% url 'viewtodo' submission.todo.id %}">
+               {% if submission.todo.important %}
                <b>
                {% endif %}
-               {{ todo.title }}
+               {{ submission.todo.title }}
                </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
+               {% if submission.todo.memo %}
+               ~{{ submission.todo.memo }}
                {% endif %}
-               ~Completed on {{ todo.date_completed|date:'dS M Y H:i' }}
+               ~Completed on {{ submission.date_submitted|date:'dS M Y H:i' }}
           </a>
      </li>
      {% endfor %}

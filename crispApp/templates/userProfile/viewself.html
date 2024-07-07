@@ -6,5 +6,40 @@
 <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
 <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 <a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
+<br>
+<h1>Your Public Todos</h1>
+<ul>
+     {% for todo in todos %}
+          <a href="{% url 'viewtodo' todo.id %}">
+               <li>
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+               </li>
+          </a>
+     {% endfor %}
+</ul>
+<h1>Exclusive Todos</h1>
+<ul>
+     {% for todo in exclusive %}
+          <a href="{% url 'viewtodo' todo.id %}">
+               <li>
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+               </li>
+          </a>
+     {% endfor %}
+</ul>
 
 {% endblock %}
