@@ -2,7 +2,7 @@
 {% block content %}
 {{ error }}
 <h1>{{ todo.title }}</h1>
-<h3>Author: <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author.name }}</a></h3>
+<h3>Authored by: <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author.name }}</a>, on {{ todo.created|date:'dS M Y H:i' }}</h3>
 
 {{ todo.memo }}
 

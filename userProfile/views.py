@@ -41,7 +41,7 @@ def searchprofile(request):
 def viewprofile(request, profile_id):
      profile = get_object_or_404(UserProfile, pk=profile_id)
      request_profile = UserProfile.objects.get(user=request.user)  # Assuming you have a one-to-one relation with UserProfile
-     todos = Todo.objects.exclude(id__in=Submission.objects.filter(submitter=request_profile).values('todo_id')).filter(visibility='Public', author=profile)
+     todos = Todo.objects.exclude(id__in=Submission.objects.filter(submitter=request_profile).values('todo_id')).filter(visibility='Public', author=profile).order_by('-created')
      exclusive = Todo.objects.filter(author=profile, visibility='Exclusive').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
@@ -74,8 +74,8 @@ def following(request, profile_id):
 @login_required
 def viewself(request):
      profile = get_object_or_404(UserProfile, user=request.user)
-     todos = Todo.objects.filter(author=profile, visibility='Public')
-     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive')
+     todos = Todo.objects.filter(author=profile, visibility='Public').order_by('-created')
+     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive').order_by('-created')
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
      context = {'profile':profile, 'following':following,'instructing':instructing, 'todos':todos, 'exclusive':exclusive}
