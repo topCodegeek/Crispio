@@ -3,11 +3,12 @@
 {% block content %}
 {{ error }}
 <br>
+{% if todos %}
 <h1>These are your private todos</h1>
 <ul>
      {% for todo in todos %}
      <li>
-               <a href="{% url 'edittodo' todo.id %}">
+               <a href="{% url 'viewtodo' todo.id %}">
                {% if todo.important %}
                <b>
                {% endif %}
@@ -20,4 +21,7 @@
      </li>
      {% endfor %}
 </ul>
+{% else %}
+<h3>You haven't created private todos. Create one to list it here.</h3>
+{% endif %}
 {% endblock %}

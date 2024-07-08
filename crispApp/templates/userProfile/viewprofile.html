@@ -26,23 +26,28 @@
 
 {% if followed %}
 <h1>For you</h1>
-<ul>
-     {% for todo in exclusive %}
-          <a href="{% url 'viewtodo' todo.id %}">
-               <li>
-                    {% if todo.important %}
-                    <b>
-                    {% endif %}
-                    {{ todo.title }}
-                    </b>
-                    {% if todo.memo %}
-                    ~{{todo.memo}}
-                    {% endif %}
-               </li>
-          </a>
-     {% endfor %}
-</ul>
+     {% if todos %}
+     <ul>
+          {% for todo in exclusive %}
+               <a href="{% url 'viewtodo' todo.id %}">
+                    <li>
+                         {% if todo.important %}
+                         <b>
+                         {% endif %}
+                         {{ todo.title }}
+                         </b>
+                         {% if todo.memo %}
+                         ~{{todo.memo}}
+                         {% endif %}
+                    </li>
+               </a>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>No exclusive todos pending.</h3>
+     {% endif %}
 {% else %}
+{% if todos %}
 <h1>Todos by {{ profile.user.first_name }}.</h1>
 <ul>
      {% for todo in todos %}
@@ -60,5 +65,8 @@
           </a>
      {% endfor %}
 </ul>
+{% else %}
+<h3>No public todos pending.</h3>
+{% endif %}
 {% endif %}
 {% endblock %}

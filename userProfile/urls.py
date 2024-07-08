@@ -6,6 +6,7 @@ app_name = 'userProfile'
 
 urlpatterns = [
      path('create/',views.createprofile, name='createprofile'),
+     path('search/',views.searchprofile, name='searchprofile'),
      path('view/<int:profile_id>', views.viewprofile, name='viewprofile'),
      path('view/self/', views.viewself, name='viewself'),
      path('follow/<int:profile_id>', views.follow, name='follow'),

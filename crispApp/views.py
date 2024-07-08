@@ -6,7 +6,6 @@ from userProfile.models import UserProfile
 from django.utils import timezone
 from .forms import TodoForm
 from .models import Todo, Submission
-from functools import wraps
 # Create your views here.
 
 def homepage(request):  #New User Required
@@ -74,37 +73,39 @@ def publictodos(request, Category):
 @login_required
 def viewtodo(request, todo_id):
     profile = UserProfile.objects.get(user=request.user)
-    todo = get_object_or_404(Todo, pk=todo_id)
-    submissions = Submission.objects.filter(todo=todo)
-    count = Submission.objects.filter(todo=todo).count()
-    if profile in todo.author.instructing.all():
+    todo1 = get_object_or_404(Todo, pk=todo_id)
+    submissions = Submission.objects.filter(todo=todo1)
+    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
+    count = Submission.objects.filter(todo=todo1).count()
+    if profile in todo1.author.instructing.all():
         followed = True
     else:
         followed=False
-    if todo.visibility=='Exclusive' and followed==False and profile!=todo.author:
+    if todo1.visibility=='Exclusive' and followed==False and profile!=todo1.author:
         return redirect('currenttodos')
-    if todo.author==profile:
+    if todo1.author==profile:
         self=True
     else:
         self=False
-    form = TodoForm(instance=todo)
-    return render (request, 'todoApp/viewtodo.html', {'count':count, 'form':form, 'todo':todo,'profile':profile,'self':self,'submissions':submissions})  
+    form = TodoForm(instance=todo1)
+    return render (request, 'todoApp/viewtodo.html', {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions})  
 
 @login_required
 def edittodo(request, todo_id):
     profile = UserProfile.objects.get(user=request.user)
-    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    todo1 = get_object_or_404(Todo, pk=todo_id, author=profile)
+    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
     if request.method=="GET":
-        form = TodoForm(instance=todo)
-        return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form,})  
+        form = TodoForm(instance=todo1)
+        return render (request, 'todoApp/edittodo.html', {'todo':todo1,'form':form,'submitted':submitted})  
     else:
         try:
-            form = TodoForm(request.POST, instance=todo)
+            form = TodoForm(request.POST, instance=todo1)
             form.save()
             return redirect('currenttodos')
         except ValueError:
-            form = TodoForm(instance=todo)
-            return render (request, 'todoApp/edittodo.html', {'form':form, 'todo':todo, 'error':'Bad data passed in, please try again.'})  
+            form = TodoForm(instance=todo1)
+            return render (request, 'todoApp/edittodo.html', {'submitted':submitted, 'form':form, 'todo':todo1, 'error':'Bad data passed in, please try again.'})  
 
 @login_required
 def completetodo(request, todo_id):
@@ -121,7 +122,7 @@ def completetodo(request, todo_id):
 @login_required
 def deletetodo(request, todo_id):
     profile = UserProfile.objects.get(user=request.user)
-    todo = get_object_or_404(Todo, pk=todo_id, user=profile)
+    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
     if request.method=='POST':
         todo.delete()
         return redirect ('currenttodos')

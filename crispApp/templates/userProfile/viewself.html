@@ -7,6 +7,7 @@
 <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 <a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
 <br>
+{% if todos %}
 <h1>Your Public Todos</h1>
 <ul>
      {% for todo in todos %}
@@ -24,6 +25,10 @@
           </a>
      {% endfor %}
 </ul>
+{% else %}
+<h3>No public todos.</h3>
+{% endif %}
+{% if exclusive %}
 <h1>Exclusive Todos</h1>
 <ul>
      {% for todo in exclusive %}
@@ -41,5 +46,8 @@
           </a>
      {% endfor %}
 </ul>
+{% else %}
+<h3>No exclusive todos.</h3>
+{% endif %}
 
 {% endblock %}

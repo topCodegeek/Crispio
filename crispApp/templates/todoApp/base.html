@@ -19,7 +19,10 @@ Logged in as {{ user.first_name }}
 <a href="{% url 'publictodos' 'following' %}">Following</a><br>
 <a href="{% url 'createtodos' %}">Create</a><br>
 <a href="{% url 'completedtodos' %}">Completed</a><br>
-<br>
+<form method="GET" action="{% url 'userProfile:searchprofile' %}">
+     <input type="search" placeholder="Search for users" name="userinput">
+     <button type="submit">Search</button>
+</form>
 {% else %}
 
 <a href="{% url 'connect' %}">Join</a>

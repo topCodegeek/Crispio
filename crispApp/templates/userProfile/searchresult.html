@@ -1,0 +1,16 @@
+{% extends 'todoApp/base.html' %}
+{% block content %}
+
+{% if profiles %}
+<h1>Here's what I found:</h1>
+<ul>
+     {% for profile in profiles %}
+     <a href="{% url 'userProfile:viewprofile' profile.id %}">
+     <li>{{ profile.name }}</li>
+     </a>
+     {% endfor %}
+</ul>
+{% else %}
+<h1>Hey, I didn't find any user.</h1>
+{% endif %}
+{% endblock %}

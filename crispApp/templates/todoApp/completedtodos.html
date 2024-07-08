@@ -1,6 +1,7 @@
 {% extends 'todoApp/base.html' %}
 {% block content %}
 
+{% if submissions %}
 <h1>Completed Todos:</h1>
 <ul>
      {% for submission in submissions %}
@@ -14,10 +15,14 @@
                {% if submission.todo.memo %}
                ~{{ submission.todo.memo }}
                {% endif %}
+               </a>
+               ~Author: <a href="{% url 'userProfile:viewprofile' submission.todo.author.id %}">{{ submission.todo.author.name }}</a>
                ~Completed on {{ submission.date_submitted|date:'dS M Y H:i' }}
-          </a>
      </li>
      {% endfor %}
 </ul>
+{% else %}
+<h3>You haven't completed </h3>
+{% endif %}
 
 {% endblock %}

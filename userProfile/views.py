@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from crispApp import views
 from .models import UserProfile
 from crispApp.models import Todo, Submission
@@ -23,10 +24,18 @@ def createprofile(request):
                profile_picture_url = extra_data.get('profile_image_url') # Twitter
           else:
                profile_picture_url = None
-          newprofile = UserProfile.objects.create(user=request.user, pfp_url=profile_picture_url)
+          name1 = request.user.first_name+' '+request.user.last_name
+          newprofile = UserProfile.objects.create(user=request.user, pfp_url=profile_picture_url, name=name1)
           newprofile.save()
      
      return redirect('currenttodos')
+
+@login_required
+def searchprofile(request):
+     userinput = request.GET['userinput']
+     profiles = UserProfile.objects.filter(name__contains=userinput)
+     context={'profiles':profiles}
+     return render (request, 'userProfile/searchresult.html', context)
 
 @login_required
 def viewprofile(request, profile_id):

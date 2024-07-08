@@ -3,6 +3,7 @@
 {% block content %}
 {{ error }}
 <br>
+{% if todos %}
 <h1>Following</h1>
 <ul>
      {% for todo in todos %}
@@ -21,4 +22,7 @@
           </li>
      {% endfor %}
 </ul>
+{% else %}
+<h3>No new todos by your instructors. They will be listed here if available.</h3>
+{% endif %}
 {% endblock %}
