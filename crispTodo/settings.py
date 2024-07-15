@@ -159,5 +159,9 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 SOCIALACCOUNT_LOGIN_ON_GET = True
-
 LOGIN_URL = '/connect'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print('Hey! I didn\'t find any local file. You must be on production.')
