@@ -33,7 +33,10 @@ def createprofile(request):
 @login_required
 def searchprofile(request):
      userinput = request.GET['userinput']
-     profiles = UserProfile.objects.filter(name__contains=userinput)
+     if userinput == '' or userinput == ' ' or userinput==None:
+          profiles = None
+     else:
+          profiles = UserProfile.objects.filter(name__contains=userinput)
      context={'profiles':profiles}
      return render (request, 'userProfile/searchresult.html', context)
 
