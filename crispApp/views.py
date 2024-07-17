@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from userProfile.models import UserProfile
 from django.utils import timezone
 from .forms import TodoForm
@@ -46,7 +47,10 @@ def createtodos(request):
 
 @login_required
 def currenttodos(request):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     todos = Todo.objects.filter(author=profile, submitters=None, visibility='Private').order_by('-created').exclude(visibility='Public')
     return render (request, 'todoApp/currenttodos.html', {'todos':todos,})
 
