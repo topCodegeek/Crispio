@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.twitter_oauth2',
 
 ]
 SOCIALACCOUNT_PROVIDERS= {
