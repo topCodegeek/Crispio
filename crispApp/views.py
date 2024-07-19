@@ -30,12 +30,15 @@ def logoutuser(request): #login required
     else:
         return render (request, 'todoApp/currenttodos.html', {'error':'Strange logout request.'})     
 
-@login_required
+@login_required #Profile needed
 def createtodos(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     if request.method=='GET':
         return render (request, 'todoApp/createtodos.html', {'form':TodoForm})  
     else:
-        profile=UserProfile.objects.get(user=request.user)
         try:
             form = TodoForm(request.POST)
             newtodo = form.save(commit=False)
@@ -45,7 +48,7 @@ def createtodos(request):
         except ValueError:
             return render (request, 'todoApp/createtodos.html', {'form':TodoForm, 'error':'Bad data passed in, please try again.'})  
 
-@login_required
+@login_required #Profile needed
 def currenttodos(request):
     try:
         profile = UserProfile.objects.get(user=request.user)
@@ -54,10 +57,13 @@ def currenttodos(request):
     todos = Todo.objects.filter(author=profile, submitters=None, visibility='Private').order_by('-created').exclude(visibility='Public')
     return render (request, 'todoApp/currenttodos.html', {'todos':todos,})
 
-@login_required
+@login_required #Profile needed
 def publictodos(request, Category):
     if Category=='following':
-        profile = UserProfile.objects.get(user=request.user)
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            return redirect ('userProfile:createprofile')
         following_profiles = profile.following.all()
         following_users = [profile for profile in following_profiles]
         todos = Todo.objects.filter(author__in=following_users, visibility='Exclusive').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
@@ -74,9 +80,12 @@ def publictodos(request, Category):
         context = {'todos': todos, 'withauthor':withauthor}
         return render(request, 'todoApp/exclusivetodos.html', context)
 
-@login_required
+@login_required #Profile needed
 def viewtodo(request, todo_id):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     todo1 = get_object_or_404(Todo, pk=todo_id)
     submissions = Submission.objects.filter(todo=todo1)
     submitted = Submission.objects.filter(todo=todo1, submitter=profile)
@@ -94,9 +103,12 @@ def viewtodo(request, todo_id):
     form = TodoForm(instance=todo1)
     return render (request, 'todoApp/viewtodo.html', {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions})  
 
-@login_required
+@login_required #Profile needed
 def edittodo(request, todo_id):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     todo1 = get_object_or_404(Todo, pk=todo_id, author=profile)
     submitted = Submission.objects.filter(todo=todo1, submitter=profile)
     if request.method=="GET":
@@ -111,9 +123,12 @@ def edittodo(request, todo_id):
             form = TodoForm(instance=todo1)
             return render (request, 'todoApp/edittodo.html', {'submitted':submitted, 'form':form, 'todo':todo1, 'error':'Bad data passed in, please try again.'})  
 
-@login_required
+@login_required #Profile needed
 def completetodo(request, todo_id):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     todo = get_object_or_404(Todo, pk=todo_id)
     if request.method=='POST':
         submission = Submission.objects.create(todo=todo, submitter=profile, date_submitted=timezone.now())
@@ -123,9 +138,12 @@ def completetodo(request, todo_id):
         form = TodoForm(instance=todo)
         return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange complete method.'})  
 
-@login_required
+@login_required #Profile needed
 def deletetodo(request, todo_id):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     todo = get_object_or_404(Todo, pk=todo_id, author=profile)
     if request.method=='POST':
         todo.delete()
@@ -134,9 +152,12 @@ def deletetodo(request, todo_id):
         form = TodoForm(instance=todo)
         return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange delete method.'})  
 
-@login_required
+@login_required #Profile needed
 def completedtodos(request):
-    profile = UserProfile.objects.get(user=request.user)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
     submissions = Submission.objects.filter(submitter=profile).order_by('-date_submitted')
     context={'submissions':submissions}
     return render (request, 'todoApp/completedtodos.html', context)
