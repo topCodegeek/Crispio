@@ -1,0 +1,32 @@
+{% extends 'todoApp/base.html' %}
+{% block content %}
+<br>
+<hr>
+<h2>{{ todo.title }}</h2>
+{{ todo.memo }}<hr>
+<h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
+          {% if self %}
+               you
+          {% else %}
+              {{ todo.author.name }}
+          {% endif %}
+     </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
+<br>
+{% if instructing %}
+<h1>Send to:</h1>
+<ul>
+     {% for follower in instructing %}
+     <li>
+          {{ follower.name }}<br>
+          {% if follower in todo.send_to.all %}
+               Unsend
+          {% else %}
+               Send
+          {% endif %}
+     </li>
+     {% endfor %}
+</ul>
+{% else %}
+<h1>You currently don't have any followers to send to-dos.</h1>
+{% endif %}
+{% endblock %}

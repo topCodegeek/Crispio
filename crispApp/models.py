@@ -10,15 +10,16 @@ class Todo(models.Model):
     title = models.CharField(max_length=100)
     memo = models.TextField(blank=True)
     visibility_choices = [
-        ('Private', 'Private - Only you can view'),
-        ('Exclusive', 'Exclusive - Sent to your followers'),
-        ('Public', 'Public - Displayed on your profile'),
+        ('Private', 'Personal - Only visible to you'),
+        ('Exclusive', 'Exclusive - Send to selective followers'),
+        ('Public', 'Public - Sent to your followers'),
     ]
     visibility = models.CharField(max_length=9, choices=visibility_choices, default='Private')
     created = models.DateTimeField(auto_now_add=True)
     important = models.BooleanField(default=False)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='author')
     submitters = models.ManyToManyField(UserProfile, through='Submission')
+    send_to = models.ManyToManyField(UserProfile, related_name='send_to')
 
     def __str__(self):
         return self.title

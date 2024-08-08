@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate
 from django.shortcuts import get_object_or_404
@@ -44,7 +44,10 @@ def createtodos(request):
             newtodo = form.save(commit=False)
             newtodo.author = profile
             newtodo.save()
-            return redirect('currenttodos')
+            if newtodo.visibility=='Exclusive':
+                return HttpResponse ("Exclusive")
+            else:
+                return redirect('currenttodos')
         except ValueError:
             return render (request, 'todoApp/createtodos.html', {'form':TodoForm, 'error':'Bad data passed in, please try again.'})  
 
@@ -161,3 +164,16 @@ def completedtodos(request):
     submissions = Submission.objects.filter(submitter=profile).order_by('-date_submitted')
     context={'submissions':submissions}
     return render (request, 'todoApp/completedtodos.html', context)
+
+def send_to(request, todo_id):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
+    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    if todo.visibility !='Exclusive':
+        return redirect('viewtodo', todo_id)
+    instructing = profile.instructing.all()
+    context={'todo':todo, 'instructing':instructing}
+    if request.method=='GET':
+        return render (request, 'todoApp/send_to.html', context)

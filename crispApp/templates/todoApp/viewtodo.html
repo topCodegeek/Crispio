@@ -1,10 +1,17 @@
 {% extends 'todoApp/base.html' %}
 {% block content %}
 {{ error }}
+<br>
+<hr>
 <h1>{{ todo.title }}</h1>
-<h3>Authored by: <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author.name }}</a>, on {{ todo.created|date:'dS M Y H:i' }}</h3>
-
-{{ todo.memo }}
+{{ todo.memo }}<hr>
+<h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
+          {% if self %}
+               you
+          {% else %}
+              {{ todo.author.name }}
+          {% endif %}
+     </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
 
 {% if important %}
      <b>
