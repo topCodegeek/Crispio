@@ -171,6 +171,8 @@ def send_to(request, todo_id):
     except ObjectDoesNotExist:
         return redirect ('userProfile:createprofile')
     todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    if todo.author == profile:
+        self=True
     if todo.visibility !='Exclusive':
         return redirect('viewtodo', todo_id)
     try:
@@ -178,7 +180,7 @@ def send_to(request, todo_id):
         instructing = profile.instructing.all().filter(name__contains=search_follower)
     except KeyError:
         instructing = profile.instructing.all()
-    context={'todo':todo, 'instructing':instructing}
+    context={'todo':todo, 'instructing':instructing, 'self':self}
     if request.method=='GET':
         return render (request, 'todoApp/send_to.html', context)
 
