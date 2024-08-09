@@ -14,14 +14,23 @@
 <br>
 {% if instructing %}
 <h1>Send to:</h1>
+<form method="GET" action="{% url 'send_to' todo.id %}">
+     <input type="search" placeholder="Search for followers" name="search_follower">
+     <button type="submit">Search</button>
+</form>
 <ul>
      {% for follower in instructing %}
      <li>
-          {{ follower.name }}<br>
+          <a href="{% url 'userProfile:viewprofile' follower.id %}">
+          {{ follower.name }}
+          </a><br>
           {% if follower in todo.send_to.all %}
                Unsend
           {% else %}
-               Send
+               <form method='POST' action="{% url 'send' todo.id follower.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Send</button>
+               </form>
           {% endif %}
      </li>
      {% endfor %}

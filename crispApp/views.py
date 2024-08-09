@@ -45,7 +45,7 @@ def createtodos(request):
             newtodo.author = profile
             newtodo.save()
             if newtodo.visibility=='Exclusive':
-                return HttpResponse ("Exclusive")
+                return redirect ('send_to', newtodo.id)
             else:
                 return redirect('currenttodos')
         except ValueError:
@@ -173,7 +173,19 @@ def send_to(request, todo_id):
     todo = get_object_or_404(Todo, pk=todo_id, author=profile)
     if todo.visibility !='Exclusive':
         return redirect('viewtodo', todo_id)
-    instructing = profile.instructing.all()
+    try:
+        search_follower = request.GET['search_follower']
+        instructing = profile.instructing.all().filter(name__contains=search_follower)
+    except KeyError:
+        instructing = profile.instructing.all()
     context={'todo':todo, 'instructing':instructing}
     if request.method=='GET':
         return render (request, 'todoApp/send_to.html', context)
+
+def send(request, todo_id, profile_id):
+    profile = get_object_or_404(UserProfile, user=request.user)
+    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    send_to_profile = get_object_or_404(UserProfile, pk=profile_id)
+    if request.method=='POST':
+        todo.send_to.add(send_to_profile)
+        return redirect ('send_to', todo.id)
