@@ -14,6 +14,7 @@
 <br>
 {% if instructing %}
 <h1>Send to:</h1>
+<a href="{% url 'currenttodos' %}">Done</a>
 <form method="GET" action="{% url 'send_to' todo.id %}">
      <input type="search" placeholder="Search for followers" name="search_follower">
      <button type="submit">Search</button>
@@ -25,7 +26,10 @@
           {{ follower.name }}
           </a><br>
           {% if follower in todo.send_to.all %}
-               Unsend
+          <form method='POST' action="{% url 'unsend' todo.id follower.id %}">
+               {% csrf_token %}
+               <button type="submit">Unsend</button>
+          </form>
           {% else %}
                <form method='POST' action="{% url 'send' todo.id follower.id %}">
                     {% csrf_token %}

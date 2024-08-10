@@ -19,9 +19,15 @@
      </b>
 {% endif %}
 {% if self %}
+     {% if todo.visibility == 'Exclusive' %}
+          <form method="GET" action="{% url 'send_to' todo.id %}">
+               {% csrf_token %}
+               <button type="submit">Send</button>
+          </form>
+     {% endif %}
      <form method="GET" action="{% url 'edittodo' todo.id %}">
           {% csrf_token %}
-     <button type="submit">Edit</button>
+          <button type="submit">Edit</button>
      </form>
      <form method="POST" action="{% url 'deletetodo' todo.id %}">
           {% csrf_token %}

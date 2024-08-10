@@ -26,10 +26,10 @@
      {% endfor %}
 </ul>
 {% else %}
-<h3>No public todos.</h3>
+<h3>No public to-dos.</h3>
 {% endif %}
 {% if exclusive %}
-<h1>Exclusive Todos</h1>
+<h1>Exclusive To-dos</h1>
 <ul>
      {% for todo in exclusive %}
           <a href="{% url 'viewtodo' todo.id %}">
@@ -47,7 +47,7 @@
      {% endfor %}
 </ul>
 {% else %}
-<h3>No exclusive todos.</h3>
+<h3>No exclusive to-dos.</h3>
 {% endif %}
 
 {% endblock %}

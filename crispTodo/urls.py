@@ -51,6 +51,7 @@ urlpatterns = [
     path('todo/edit/<int:todo_id>', views.edittodo, name="edittodo"),
     path('todo/send_to/<int:todo_id>', views.send_to, name="send_to"),
     path('todo/send/<int:todo_id>/<int:profile_id>', views.send, name="send"),
+    path('todo/unsend/<int:todo_id>/<int:profile_id>', views.unsend, name="unsend"),
     path('todo/complete/<int:todo_id>', views.completetodo, name="completetodo"),
     path('todo/delete/<int:todo_id>', views.deletetodo, name="deletetodo"),
 ]

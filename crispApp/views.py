@@ -69,10 +69,13 @@ def publictodos(request, Category):
             return redirect ('userProfile:createprofile')
         following_profiles = profile.following.all()
         following_users = [profile for profile in following_profiles]
-        todos = Todo.objects.filter(author__in=following_users, visibility='Exclusive').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
-        prev_author = 0
+        todos = Todo.objects.filter(author__in=following_users, visibility='Public').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
+        exclusive_todos = Todo.objects.filter(send_to=profile, visibility='Exclusive')
+        todos |= exclusive_todos
+        todos = todos.order_by('-created')
         withauthor = {}
         '''
+        prev_author = 0
         for todo in todos:
             if prev_author == todo.author.id:
                 withauthor[todo.author.id]= '1'
@@ -104,7 +107,10 @@ def viewtodo(request, todo_id):
     else:
         self=False
     form = TodoForm(instance=todo1)
-    return render (request, 'todoApp/viewtodo.html', {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions})  
+    if self or todo1.visibility=='Public' or profile in todo1.send_to.all():
+        return render (request, 'todoApp/viewtodo.html', {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions}) 
+    else:
+        garbage_value=get_object_or_404(Todo, visibility='garbage_value') #To raise 404 error. 
 
 @login_required #Profile needed
 def edittodo(request, todo_id):
@@ -121,7 +127,10 @@ def edittodo(request, todo_id):
         try:
             form = TodoForm(request.POST, instance=todo1)
             form.save()
-            return redirect('currenttodos')
+            if todo1.visibility=='Exclusive':
+                return redirect ('send_to', todo1.id)
+            else:
+                return redirect('currenttodos')
         except ValueError:
             form = TodoForm(instance=todo1)
             return render (request, 'todoApp/edittodo.html', {'submitted':submitted, 'form':form, 'todo':todo1, 'error':'Bad data passed in, please try again.'})  
@@ -191,3 +200,12 @@ def send(request, todo_id, profile_id):
     if request.method=='POST':
         todo.send_to.add(send_to_profile)
         return redirect ('send_to', todo.id)
+    
+def unsend(request, todo_id, profile_id):
+    profile = get_object_or_404(UserProfile, user=request.user)
+    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    send_to_profile = get_object_or_404(UserProfile, pk=profile_id)
+    if request.method=='POST':
+        todo.send_to.remove(send_to_profile)
+        return redirect ('send_to', todo.id)
+

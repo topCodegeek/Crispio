@@ -12,7 +12,7 @@ class Todo(models.Model):
     visibility_choices = [
         ('Private', 'Personal - Only visible to you'),
         ('Exclusive', 'Exclusive - Send to selective followers'),
-        ('Public', 'Public - Sent to your followers'),
+        ('Public', 'Public - Send to your followers'),
     ]
     visibility = models.CharField(max_length=9, choices=visibility_choices, default='Private')
     created = models.DateTimeField(auto_now_add=True)

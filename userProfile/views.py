@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404
 from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
+
+#Create
 @login_required #Profile needed
 def createprofile(request):
      try:
@@ -30,6 +32,7 @@ def createprofile(request):
      
      return redirect('currenttodos')
 
+#Search Profile
 @login_required
 def searchprofile(request):
      userinput = request.GET['userinput']
@@ -40,6 +43,7 @@ def searchprofile(request):
      context={'profiles':profiles}
      return render (request, 'userProfile/searchresult.html', context)
 
+#View Profile
 @login_required #Profile needed
 def viewprofile(request, profile_id):
      try:
@@ -48,7 +52,7 @@ def viewprofile(request, profile_id):
         return redirect ('userProfile:createprofile')
      profile = get_object_or_404(UserProfile, pk=profile_id)
      todos = Todo.objects.exclude(id__in=Submission.objects.filter(submitter=request_profile).values('todo_id')).filter(visibility='Public', author=profile).order_by('-created')
-     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive').order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
+     exclusive = Todo.objects.filter(author=profile, visibility='Exclusive', send_to=request_profile).order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
      if request_profile in profile.instructing.all():
@@ -63,20 +67,6 @@ def viewprofile(request, profile_id):
      context = {'exclusive':exclusive, 'todos': todos, 'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following}
      return render (request, 'userProfile/viewprofile.html', context)
 
-@login_required
-def instructing(request, profile_id):
-     profile = get_object_or_404(UserProfile, pk=profile_id)
-     instructing = profile.instructing.all()
-     instructing_count = instructing.count()
-     return render (request, 'userProfile/instructing.html', {'profile':profile, 'instructing':instructing, 'count':instructing_count})
-
-@login_required
-def following(request, profile_id):
-     profile = get_object_or_404(UserProfile, pk=profile_id)
-     following = profile.following.all()
-     following_count = following.count()
-     return render (request, 'userProfile/following.html', {'profile':profile, 'following':following, 'count':following_count})
-
 @login_required #Profile needed
 def viewself(request):
      try:
@@ -90,6 +80,8 @@ def viewself(request):
      context = {'profile':profile, 'following':following,'instructing':instructing, 'todos':todos, 'exclusive':exclusive}
      return render (request, 'userProfile/viewself.html', context)
 
+
+#Follow and Unfollow
 @login_required #Profile needed
 def  follow(request, profile_id):
      if request.method=='POST':
@@ -113,3 +105,19 @@ def  unfollow(request, profile_id):
           to_follow.instructing.remove(request_profile)
           request_profile.following.remove(to_follow)
           return redirect('userProfile:viewprofile', profile_id)
+     
+
+#Following and Instructing
+@login_required
+def instructing(request, profile_id):
+     profile = get_object_or_404(UserProfile, pk=profile_id)
+     instructing = profile.instructing.all()
+     instructing_count = instructing.count()
+     return render (request, 'userProfile/instructing.html', {'profile':profile, 'instructing':instructing, 'count':instructing_count})
+
+@login_required
+def following(request, profile_id):
+     profile = get_object_or_404(UserProfile, pk=profile_id)
+     following = profile.following.all()
+     following_count = following.count()
+     return render (request, 'userProfile/following.html', {'profile':profile, 'following':following, 'count':following_count})
