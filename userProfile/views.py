@@ -43,7 +43,7 @@ def searchprofile(request):
      context={'profiles':profiles}
      return render (request, 'userProfile/searchresult.html', context)
 
-#View Profile
+#View Profile, Self
 @login_required #Profile needed
 def viewprofile(request, profile_id):
      try:

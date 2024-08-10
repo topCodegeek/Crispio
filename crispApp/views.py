@@ -9,6 +9,7 @@ from .forms import TodoForm
 from .models import Todo, Submission
 # Create your views here.
 
+#New Visitors
 def homepage(request):  #New User Required
     if request.user.is_authenticated:
         return redirect('currenttodos')
@@ -22,6 +23,8 @@ def connect(request):   #New User Required
 def currentredirect(request):
     return redirect('currenttodos')
 
+
+#Logout
 @login_required
 def logoutuser(request): #login required
     if request.method == "POST":
@@ -30,6 +33,8 @@ def logoutuser(request): #login required
     else:
         return render (request, 'todoApp/currenttodos.html', {'error':'Strange logout request.'})     
 
+
+#Create, Edit, Delete, Comeplete
 @login_required #Profile needed
 def createtodos(request):
     try:
@@ -52,6 +57,88 @@ def createtodos(request):
             return render (request, 'todoApp/createtodos.html', {'form':TodoForm, 'error':'Bad data passed in, please try again.'})  
 
 @login_required #Profile needed
+def edittodo(request, todo_id):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
+    todo1 = get_object_or_404(Todo, pk=todo_id, author=profile)
+    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
+    if request.method=="GET":
+        form = TodoForm(instance=todo1)
+        return render (request, 'todoApp/edittodo.html', {'todo':todo1,'form':form,'submitted':submitted})  
+    else:
+        try:
+            form = TodoForm(request.POST, instance=todo1)
+            form.save()
+            if todo1.visibility=='Exclusive':
+                return redirect ('send_to', todo1.id)
+            else:
+                return redirect('currenttodos')
+        except ValueError:
+            form = TodoForm(instance=todo1)
+            return render (request, 'todoApp/edittodo.html', {'submitted':submitted, 'form':form, 'todo':todo1, 'error':'Bad data passed in, please try again.'})  
+
+@login_required #Profile needed
+def deletetodo(request, todo_id):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
+    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
+    if request.method=='POST':
+        todo.delete()
+        return redirect ('currenttodos')
+    else:
+        form = TodoForm(instance=todo)
+        return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange delete method.'})  
+
+@login_required #Profile needed
+def completetodo(request, todo_id):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
+    todo = get_object_or_404(Todo, pk=todo_id)
+    if request.method=='POST':
+        submission = Submission.objects.create(todo=todo, submitter=profile, date_submitted=timezone.now())
+        submission.save()
+        return redirect('currenttodos')
+    else:
+        form = TodoForm(instance=todo)
+        return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange complete method.'})  
+
+
+#Detail, Current, Following, Completed
+@login_required #(DETAIL) - Profile Needed
+def viewtodo(request, todo_id):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        return redirect ('userProfile:createprofile')
+    todo1 = get_object_or_404(Todo, pk=todo_id)
+    submissions = Submission.objects.filter(todo=todo1)
+    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
+    count = Submission.objects.filter(todo=todo1).count()
+    if profile in todo1.author.instructing.all():
+        followed = True
+    else:
+        followed=False
+    if todo1.visibility=='Exclusive' and followed==False and profile!=todo1.author:
+        return redirect('currenttodos')
+    if todo1.author==profile:
+        self=True
+    else:
+        self=False
+    form = TodoForm(instance=todo1)
+    if self or todo1.visibility=='Public' or profile in todo1.send_to.all():
+        access = True
+    else:
+        access = False 
+    context = {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions, 'access':access}
+    return render (request, 'todoApp/viewtodo.html', context) 
+
+@login_required #Profile needed
 def currenttodos(request):
     try:
         profile = UserProfile.objects.get(user=request.user)
@@ -60,7 +147,7 @@ def currenttodos(request):
     todos = Todo.objects.filter(author=profile, submitters=None, visibility='Private').order_by('-created').exclude(visibility='Public')
     return render (request, 'todoApp/currenttodos.html', {'todos':todos,})
 
-@login_required #Profile needed
+@login_required #(FOLLOWING) - Profile needed
 def publictodos(request, Category):
     if Category=='following':
         try:
@@ -87,84 +174,6 @@ def publictodos(request, Category):
         return render(request, 'todoApp/exclusivetodos.html', context)
 
 @login_required #Profile needed
-def viewtodo(request, todo_id):
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        return redirect ('userProfile:createprofile')
-    todo1 = get_object_or_404(Todo, pk=todo_id)
-    submissions = Submission.objects.filter(todo=todo1)
-    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
-    count = Submission.objects.filter(todo=todo1).count()
-    if profile in todo1.author.instructing.all():
-        followed = True
-    else:
-        followed=False
-    if todo1.visibility=='Exclusive' and followed==False and profile!=todo1.author:
-        return redirect('currenttodos')
-    if todo1.author==profile:
-        self=True
-    else:
-        self=False
-    form = TodoForm(instance=todo1)
-    if self or todo1.visibility=='Public' or profile in todo1.send_to.all():
-        return render (request, 'todoApp/viewtodo.html', {'submitted':submitted, 'count':count, 'form':form, 'todo':todo1,'profile':profile,'self':self,'submissions':submissions}) 
-    else:
-        garbage_value=get_object_or_404(Todo, visibility='garbage_value') #To raise 404 error. 
-
-@login_required #Profile needed
-def edittodo(request, todo_id):
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        return redirect ('userProfile:createprofile')
-    todo1 = get_object_or_404(Todo, pk=todo_id, author=profile)
-    submitted = Submission.objects.filter(todo=todo1, submitter=profile)
-    if request.method=="GET":
-        form = TodoForm(instance=todo1)
-        return render (request, 'todoApp/edittodo.html', {'todo':todo1,'form':form,'submitted':submitted})  
-    else:
-        try:
-            form = TodoForm(request.POST, instance=todo1)
-            form.save()
-            if todo1.visibility=='Exclusive':
-                return redirect ('send_to', todo1.id)
-            else:
-                return redirect('currenttodos')
-        except ValueError:
-            form = TodoForm(instance=todo1)
-            return render (request, 'todoApp/edittodo.html', {'submitted':submitted, 'form':form, 'todo':todo1, 'error':'Bad data passed in, please try again.'})  
-
-@login_required #Profile needed
-def completetodo(request, todo_id):
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        return redirect ('userProfile:createprofile')
-    todo = get_object_or_404(Todo, pk=todo_id)
-    if request.method=='POST':
-        submission = Submission.objects.create(todo=todo, submitter=profile, date_submitted=timezone.now())
-        submission.save()
-        return redirect('currenttodos')
-    else:
-        form = TodoForm(instance=todo)
-        return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange complete method.'})  
-
-@login_required #Profile needed
-def deletetodo(request, todo_id):
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        return redirect ('userProfile:createprofile')
-    todo = get_object_or_404(Todo, pk=todo_id, author=profile)
-    if request.method=='POST':
-        todo.delete()
-        return redirect ('currenttodos')
-    else:
-        form = TodoForm(instance=todo)
-        return render (request, 'todoApp/edittodo.html', {'todo':todo,'form':form, 'error':'Strange delete method.'})  
-
-@login_required #Profile needed
 def completedtodos(request):
     try:
         profile = UserProfile.objects.get(user=request.user)
@@ -174,6 +183,8 @@ def completedtodos(request):
     context={'submissions':submissions}
     return render (request, 'todoApp/completedtodos.html', context)
 
+
+#Send_to, Send(POST), Unsend(POST)
 def send_to(request, todo_id):
     try:
         profile = UserProfile.objects.get(user=request.user)
