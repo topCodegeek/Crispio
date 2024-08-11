@@ -29,18 +29,21 @@
 <h1>For you</h1>
 <ul>
      {% for todo in exclusive %}
-          <a href="{% url 'viewtodo' todo.id %}">
-               <li>
-                    {% if todo.important %}
-                    <b>
-                    {% endif %}
-                    {{ todo.title }}
-                    </b>
-                    {% if todo.memo %}
-                    ~{{todo.memo}}
-                    {% endif %}
-               </li>
-          </a>
+          <li>
+               <a href="{% url 'viewtodo' todo.id %}">
+               {% if todo.important %}
+               <b>
+               {% endif %}
+               {{ todo.title }}
+               </b>
+               {% if todo.memo %}
+               ~{{todo.memo}}
+               {% endif %}
+               </a>
+               {% if todo.complete_by %}
+               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+               {% endif %}
+          </li>
      {% endfor %}
 </ul>
 {% else %}
@@ -52,18 +55,21 @@
 <h1>Public to-dos by {{ profile.user.first_name }}.</h1>
 <ul>
      {% for todo in todos %}
-          <a href="{% url 'viewtodo' todo.id %}">
-               <li>
-                    {% if todo.important %}
-                    <b>
-                    {% endif %}
-                    {{ todo.title }}
-                    </b>
-                    {% if todo.memo %}
-                    ~{{todo.memo}}
-                    {% endif %}
-               </li>
-          </a>
+          <li>
+               <a href="{% url 'viewtodo' todo.id %}">
+               {% if todo.important %}
+               <b>
+               {% endif %}
+               {{ todo.title }}
+               </b>
+               {% if todo.memo %}
+               ~{{todo.memo}}
+               {% endif %}
+               </a>
+               {% if todo.complete_by %}
+               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+               {% endif %}
+          </li>
      {% endfor %}
 </ul>
 {% else %}

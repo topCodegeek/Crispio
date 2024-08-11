@@ -6,7 +6,10 @@
 
 <hr>
      <h1>{{ todo.title }}</h1>
-     {{ todo.memo }}<hr>
+     {{ todo.memo }}
+     {% if todo.complete_by %}
+     <i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+     {% endif %}<hr>
      <h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
                {% if self %}
                     you

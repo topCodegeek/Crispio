@@ -18,7 +18,10 @@
                ~{{todo.memo}}
                {% endif %}
                </a>
-                ~By <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author.user.first_name }} {{ todo.author.user.last_name }}</a>
+               ~By <a href="{% url 'userProfile:viewprofile' todo.author.id %}">{{ todo.author.user.first_name }} {{ todo.author.user.last_name }}</a>
+               {% if todo.complete_by %}
+               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+               {% endif %}
           </li>
      {% endfor %}
 </ul>

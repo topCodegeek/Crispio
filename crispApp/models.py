@@ -20,6 +20,7 @@ class Todo(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='author')
     submitters = models.ManyToManyField(UserProfile, through='Submission')
     send_to = models.ManyToManyField(UserProfile, related_name='send_to')
+    complete_by = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.title
