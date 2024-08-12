@@ -53,14 +53,25 @@ SOCIALACCOUNT_PROVIDERS= {
         # listed here:
         "SCOPE": [
             "profile",
+            "email",
         ],
         "AUTH_PARAMS": {
             "access_type": "online",
         },
         'EMAIL_AUTHENTICATION': True,
         'SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT':True,
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'emails',
+        ],
+        'EMAIL_AUTHENTICATION': True,
     }
 }
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
