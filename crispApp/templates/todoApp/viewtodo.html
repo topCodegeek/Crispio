@@ -23,28 +23,38 @@
           {{ todo.important }}
           </b>
      {% endif %}
+
+     {% if submitted %}
+          {% if todo.pin %}
+               <form method="POST" action="{% url 'completetodo' todo.id %}">
+                    {% csrf_token %}
+               <button type="submit">Complete</button>
+               </form>
+          {% else %}
+               <form method="GET" action="{% url 'reassign' todo.id %}">
+                    <button type="submit">Re-assign</button>
+               </form>
+          {% endif %}
+     {% else %}
+     <form method="POST" action="{% url 'completetodo' todo.id %}">
+          {% csrf_token %}
+     <button type="submit">Complete</button>
+     </form>
+     {% endif %}
+
      {% if self %}
           {% if todo.visibility == 'Exclusive' %}
                <form method="GET" action="{% url 'send_to' todo.id %}">
-                    {% csrf_token %}
                     <button type="submit">Send</button>
                </form>
           {% endif %}
           <form method="GET" action="{% url 'edittodo' todo.id %}">
-               {% csrf_token %}
                <button type="submit">Edit</button>
           </form>
           <form method="POST" action="{% url 'deletetodo' todo.id %}">
                {% csrf_token %}
                <button type="submit">Delete</button>
           </form>
-     {% endif %}
-     {% if submitted %}
-     {% else %}
-     <form method="POST" action="{% url 'completetodo' todo.id %}">
-          {% csrf_token %}
-     <button type="submit">Complete</button>
-     </form>
      {% endif %}
      <h1>Completed by {{ count }} user{{ count|pluralize }}.</h1>
      <ul>

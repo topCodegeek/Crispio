@@ -1,23 +1,12 @@
 {% extends 'todoApp/base.html' %}
 {% block content %}
 {{ error }}
-<h1>{{ todo.title }}</h1>
+<h1>Edit or Reassign</h1>
 <form method="POST">
      {% csrf_token %}
      {{ form.as_p }}
 <button type="submit">
      Save
 </button>
-</form>
-{% if submitted %}
-{% else %}
-<form method="POST" action="{% url 'completetodo' todo.id %}">
-     {% csrf_token %}
-<button type="submit">Complete</button>
-</form>
-{% endif %}
-<form method="POST" action="{% url 'deletetodo' todo.id %}">
-     {% csrf_token %}
-     <button type="submit">Delete</button>
 </form>
 {% endblock %}
