@@ -18,9 +18,6 @@
                ~{{todo.memo}}
                {% endif %}
                </a>
-               {% if todo.complete_by %}
-               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-               {% endif %}
      </li>
      {% endfor %}
 </ul>
