@@ -1,16 +1,27 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
 
-{{ profile.user.first_name }} is following {{ count }} user{{ count|pluralize }}.
-<br>
-<ul>
-     {% for followinguser in following %}
-          <a href="{% url 'userProfile:viewprofile' followinguser.id %}">
-          <li>
-          {{ followinguser.user.first_name }} {{ followinguser.user.last_name }} 
-          </li>
-          </a>
-     {% endfor %}
-</ul>
+     {{ profile.user.first_name }} is following {{ count }} user{{ count|pluralize }}.
+     <br>
+     <ul>
+          {% for followinguser in following %}
+               <a href="{% url 'userProfile:viewprofile' followinguser.id %}">
+               <li>
+               {{ followinguser.user.first_name }} {{ followinguser.user.last_name }} 
+               </li>
+               </a>
+          {% endfor %}
+     </ul>
 
-{% endblock %}
+     {% endblock %}
+</body>
+</html>

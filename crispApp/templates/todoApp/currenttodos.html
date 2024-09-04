@@ -1,27 +1,37 @@
 {% extends 'todoApp/base.html' %}
-
-{% block content %}
-{{ error }}
-<br>
-{% if todos %}
-<h1>These are your private to-dos</h1>
-<ul>
-     {% for todo in todos %}
-     <li>
-               <a href="{% url 'viewtodo' todo.id %}">
-               {% if todo.important %}
-               <b>
-               {% endif %}
-               {{ todo.title }}
-               </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
-               {% endif %}
-               </a>
-     </li>
-     {% endfor %}
-</ul>
-{% else %}
-<h3>You haven't created private to-dos. Create one to list it here.</h3>
-{% endif %}
-{% endblock %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
+     {{ error }}
+     <br>
+     {% if todos %}
+     <h1>These are your private to-dos</h1>
+     <ul>
+          {% for todo in todos %}
+          <li>
+                    <a href="{% url 'viewtodo' todo.id %}">
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+                    </a>
+          </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>You haven't created private to-dos. Create one to list it here.</h3>
+     {% endif %}
+     {% endblock %}
+</body>
+</html>

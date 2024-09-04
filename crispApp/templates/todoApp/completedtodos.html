@@ -1,28 +1,35 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+</head>
+<body>
+     {% block content %}
 
-{% if submissions %}
-<h1>Completed To-dos:</h1>
-<ul>
-     {% for submission in submissions %}
-     <li>
-               <a href="{% url 'viewtodo' submission.todo.id %}">
-               {% if submission.todo.important %}
-               <b>
-               {% endif %}
-               {{ submission.todo.title }}
-               </b>
-               {% if submission.todo.memo %}
-               ~{{ submission.todo.memo }}
-               {% endif %}
-               </a>
-               ~Author: <a href="{% url 'userProfile:viewprofile' submission.todo.author.id %}">{{ submission.todo.author.name }}</a>
-               ~Completed on {{ submission.date_submitted|date:'dS M Y H:i' }}
-     </li>
-     {% endfor %}
-</ul>
-{% else %}
-<h3>You haven't completed any to-dos.</h3>
-{% endif %}
+     {% if submissions %}
+     <h1>Completed To-dos:</h1>
+     <ul>
+          {% for submission in submissions %}
+          <li>
+                    <a href="{% url 'viewtodo' submission.todo.id %}">
+                    {% if submission.todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ submission.todo.title }}
+                    </b>
+                    {% if submission.todo.memo %}
+                    ~{{ submission.todo.memo }}
+                    {% endif %}
+                    </a>
+                    ~Author: <a href="{% url 'userProfile:viewprofile' submission.todo.author.id %}">{{ submission.todo.author.name }}</a>
+                    ~Completed on {{ submission.date_submitted|date:'dS M Y H:i' }}
+          </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>You haven't completed any to-dos.</h3>
+     {% endif %}
 
-{% endblock %}
+     {% endblock %}
+</body>
+</html>

@@ -1,8 +1,18 @@
 {% extends 'todoApp/base.html' %}
-{% load socialaccount %}
+<!doctype html>
+<html lang="en">
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% load socialaccount %}
 
-{% block content %}
-<a href="{% provider_login_url 'google' %}?next=/userprofile/create/">Continue with Google</a><br>
-<a href="{% provider_login_url 'github' %}?next=/userprofile/create/">Continue with Github</a><br>
-Your email is taken to avoid creation of duplicate accounts.
-{% endblock %}
+     {% block content %}
+     <a href="{% provider_login_url 'google' %}?next=/userprofile/create/">Continue with Google</a><br>
+     <a href="{% provider_login_url 'github' %}?next=/userprofile/create/">Continue with Github</a><br>
+     Your email is taken to avoid creation of duplicate accounts.
+     {% endblock %}
+</body>
+</html>

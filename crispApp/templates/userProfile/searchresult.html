@@ -1,16 +1,27 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
 
-{% if profiles %}
-<h1>Here's what I found:</h1>
-<ul>
-     {% for profile in profiles %}
-     <a href="{% url 'userProfile:viewprofile' profile.id %}">
-     <li>{{ profile.name }}</li>
-     </a>
-     {% endfor %}
-</ul>
-{% else %}
-<h1>Hey, I didn't find any user.</h1>
-{% endif %}
-{% endblock %}
+     {% if profiles %}
+     <h1>Here's what I found:</h1>
+     <ul>
+          {% for profile in profiles %}
+          <a href="{% url 'userProfile:viewprofile' profile.id %}">
+          <li>{{ profile.name }}</li>
+          </a>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h1>Hey, I didn't find any user.</h1>
+     {% endif %}
+     {% endblock %}
+</body>
+</html>

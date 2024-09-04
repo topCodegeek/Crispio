@@ -1,69 +1,80 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
-<br>
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
+     <br>
 
-{% if access %}
+     {% if access %}
 
-<hr>
-     <h1>{{ todo.title }}</h1>
-     {{ todo.memo }}<hr>
-     <h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
-               {% if self %}
-                    you
+     <hr>
+          <h1>{{ todo.title }}</h1>
+          {{ todo.memo }}<hr>
+          <h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
+                    {% if self %}
+                         you
+                    {% else %}
+                    {{ todo.author.name }}
+                    {% endif %}
+               </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
+
+          {% if important %}
+               <b>
+               {{ todo.important }}
+               </b>
+          {% endif %}
+
+          {% if submitted %}
+               {% if todo.pin %}
+                    <form method="POST" action="{% url 'completetodo' todo.id %}">
+                         {% csrf_token %}
+                    <button type="submit">Complete</button>
+                    </form>
                {% else %}
-               {{ todo.author.name }}
+                    <form method="GET" action="{% url 'reassign' todo.id %}">
+                         <button type="submit">Re-assign</button>
+                    </form>
                {% endif %}
-          </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
-
-     {% if important %}
-          <b>
-          {{ todo.important }}
-          </b>
-     {% endif %}
-
-     {% if submitted %}
-          {% if todo.pin %}
-               <form method="POST" action="{% url 'completetodo' todo.id %}">
-                    {% csrf_token %}
-               <button type="submit">Complete</button>
-               </form>
           {% else %}
-               <form method="GET" action="{% url 'reassign' todo.id %}">
-                    <button type="submit">Re-assign</button>
-               </form>
-          {% endif %}
-     {% else %}
-     <form method="POST" action="{% url 'completetodo' todo.id %}">
-          {% csrf_token %}
-     <button type="submit">Complete</button>
-     </form>
-     {% endif %}
-
-     {% if self %}
-          {% if todo.visibility == 'Exclusive' %}
-               <form method="GET" action="{% url 'send_to' todo.id %}">
-                    <button type="submit">Send</button>
-               </form>
-          {% endif %}
-          <form method="GET" action="{% url 'edittodo' todo.id %}">
-               <button type="submit">Edit</button>
-          </form>
-          <form method="POST" action="{% url 'deletetodo' todo.id %}">
+          <form method="POST" action="{% url 'completetodo' todo.id %}">
                {% csrf_token %}
-               <button type="submit">Delete</button>
+          <button type="submit">Complete</button>
           </form>
-     {% endif %}
-     <h1>Completed by {{ count }} user{{ count|pluralize }}.</h1>
-     <ul>
-     {% for submission in submissions %}
-     <li>
-          <b><a href="{% url 'userProfile:viewprofile' submission.submitter.id %}">{{ submission.submitter.user.first_name }} {{ submission.submitter.user.last_name }}</a></b>
-          On {{ submission.date_submitted|date:'dS M Y H:i' }}
-     </li>
-     {% endfor %}
-     </ul>
-{% else %}
-     <h1>You don't have access to this to-do.</h1>
-{% endif %}
+          {% endif %}
 
-{% endblock %}
+          {% if self %}
+               {% if todo.visibility == 'Exclusive' %}
+                    <form method="GET" action="{% url 'send_to' todo.id %}">
+                         <button type="submit">Send</button>
+                    </form>
+               {% endif %}
+               <form method="GET" action="{% url 'edittodo' todo.id %}">
+                    <button type="submit">Edit</button>
+               </form>
+               <form method="POST" action="{% url 'deletetodo' todo.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+               </form>
+          {% endif %}
+          <h1>Completed by {{ count }} user{{ count|pluralize }}.</h1>
+          <ul>
+          {% for submission in submissions %}
+          <li>
+               <b><a href="{% url 'userProfile:viewprofile' submission.submitter.id %}">{{ submission.submitter.user.first_name }} {{ submission.submitter.user.last_name }}</a></b>
+               On {{ submission.date_submitted|date:'dS M Y H:i' }}
+          </li>
+          {% endfor %}
+          </ul>
+     {% else %}
+          <h1>You don't have access to this to-do.</h1>
+     {% endif %}
+
+     {% endblock %}
+</body>
+</html>

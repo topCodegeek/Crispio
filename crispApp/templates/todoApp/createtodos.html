@@ -1,14 +1,25 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
 
-<h1>Create</h1>
-{{ error }}
-<form method="POST">
-     {{ form.as_p }}
-     {% csrf_token %}
-<button type="submit">
-     Create
-</button>
-</form>
+     <h1>Create</h1>
+     {{ error }}
+     <form method="POST">
+          {{ form.as_p }}
+          {% csrf_token %}
+     <button type="submit">
+          Create
+     </button>
+     </form>
 
-{% endblock %}
+     {% endblock %}
+</body>
+</html>

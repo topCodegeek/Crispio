@@ -1,33 +1,38 @@
-<!-- Removing Link Underline -->
-<style>
-     a {
-          text-decoration: none;
-     }
-</style>
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Styling Import-->
+     <link rel="stylesheet" href="{% static 'crispApp/styling.css' %}">
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     <!-- Content -->
+     {% if user.is_authenticated %}
+     Logged in as {{ user.first_name }}
 
-<!-- Content -->
-{% if user.is_authenticated %}
-Logged in as {{ user.first_name }}
+     <!-- Logout -->
+     <form method="POST" action="{% url 'logoutuser' %}">
+     {% csrf_token %}
+     <button type="SUBMIT">Logout</button>
+     </form>
+     <a href="{% url 'userProfile:viewself' %}">You</a><br>
+     <a href="{% url 'currenttodos' %}">Current</a><br>
+     <a href="{% url 'publictodos' 'following' %}">Following</a><br>
+     <a href="{% url 'createtodos' %}">Create</a><br>
+     <a href="{% url 'completedtodos' %}">Completed</a><br>
+     <form method="GET" action="{% url 'userProfile:searchprofile' %}">
+          <input type="search" placeholder="Search for users" name="userinput">
+          <button type="submit">Search</button>
+     </form>
 
-<!-- Logout -->
-<form method="POST" action="{% url 'logoutuser' %}">
-{% csrf_token %}
-<button type="SUBMIT">Logout</button>
-</form>
-<a href="{% url 'userProfile:viewself' %}">You</a><br>
-<a href="{% url 'currenttodos' %}">Current</a><br>
-<a href="{% url 'publictodos' 'following' %}">Following</a><br>
-<a href="{% url 'createtodos' %}">Create</a><br>
-<a href="{% url 'completedtodos' %}">Completed</a><br>
-<form method="GET" action="{% url 'userProfile:searchprofile' %}">
-     <input type="search" placeholder="Search for users" name="userinput">
-     <button type="submit">Search</button>
-</form>
-{% else %}
+     {% else %}
+     <a href="{% url 'connect' %}">Join</a>
+     <br>
+     {% endif %}
 
-<a href="{% url 'connect' %}">Join</a>
-<br>
-
-{% endif %}
-
-{% block content %}{% endblock %}
+     {% block content %}{% endblock %}
+</body>
+</html>

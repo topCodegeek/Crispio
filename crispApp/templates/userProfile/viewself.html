@@ -1,60 +1,71 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
 
-<img src="{{ profile.pfp_url }}">
-<h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-<a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
-<a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
-<a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
-<br>
-{% if todos %}
-<h1>Your Public To-dos</h1>
-<ul>
-     {% for todo in todos %}
-          <li>
-               <a href="{% url 'viewtodo' todo.id %}">
-               {% if todo.important %}
-               <b>
-               {% endif %}
-               {{ todo.title }}
-               </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
-               {% endif %}
-               </a>
-               {% if todo.complete_by %}
-               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-               {% endif %}
-          </li>
+     <img src="{{ profile.pfp_url }}">
+     <h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+     <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
+     <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
+     <a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
+     <br>
+     {% if todos %}
+     <h1>Your Public To-dos</h1>
+     <ul>
+          {% for todo in todos %}
+               <li>
+                    <a href="{% url 'viewtodo' todo.id %}">
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+                    </a>
+                    {% if todo.complete_by %}
+                    <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+                    {% endif %}
+               </li>
 
-     {% endfor %}
-</ul>
-{% else %}
-<h3>No public to-dos.</h3>
-{% endif %}
-{% if exclusive %}
-<h1>Exclusive To-dos</h1>
-<ul>
-     {% for todo in exclusive %}
-          <li>
-               <a href="{% url 'viewtodo' todo.id %}">
-               {% if todo.important %}
-               <b>
-               {% endif %}
-               {{ todo.title }}
-               </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
-               {% endif %}
-               </a>
-               {% if todo.complete_by %}
-               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-               {% endif %}
-          </li>
-     {% endfor %}
-</ul>
-{% else %}
-<h3>No exclusive to-dos.</h3>
-{% endif %}
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>No public to-dos.</h3>
+     {% endif %}
+     {% if exclusive %}
+     <h1>Exclusive To-dos</h1>
+     <ul>
+          {% for todo in exclusive %}
+               <li>
+                    <a href="{% url 'viewtodo' todo.id %}">
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+                    </a>
+                    {% if todo.complete_by %}
+                    <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+                    {% endif %}
+               </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>No exclusive to-dos.</h3>
+     {% endif %}
 
-{% endblock %}
+     {% endblock %}
+</body>
+</html>

@@ -1,78 +1,90 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
 
-<img src="{{ profile.pfp_url }}">
-<h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-<a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
-<a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
+     <img src="{{ profile.pfp_url }}">
+     <h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+     <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
+     <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
 
-{% if followed %}
-<form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
-     {% csrf_token %}
-<button type="submit">Unfollow</button>
-
-{% else %}
-     {% if self %}
-     <!-- Self -->
+     {% if followed %}
+     <form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
+          {% csrf_token %}
+     <button type="submit">Unfollow</button>
+     </form>
 
      {% else %}
-          <form method="POST" action="{% url 'userProfile:follow' profile.id %}">
-               {% csrf_token %}
-          <button type="submit">Follow</button>
-          </form>
-          Follow {{ profile.user.first_name }} to list to-dos in your following feed. 
-     {% endif %}
-{% endif %}<br>
+          {% if self %}
+          <!-- Self -->
 
-{% if followed %}
-{% if exclusive %}
-<h1>For you</h1>
-<ul>
-     {% for todo in exclusive %}
-          <li>
-               <a href="{% url 'viewtodo' todo.id %}">
-               {% if todo.important %}
-               <b>
-               {% endif %}
-               {{ todo.title }}
-               </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
-               {% endif %}
-               </a>
-               {% if todo.complete_by %}
-               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-               {% endif %}
-          </li>
-     {% endfor %}
-</ul>
-{% else %}
-     <h3>No exclusive to-dos pending.</h3>
-     {% endif %}
-{% endif %}
+          {% else %}
+               <form method="POST" action="{% url 'userProfile:follow' profile.id %}">
+                    {% csrf_token %}
+               <button type="submit">Follow</button>
+               </form>
+               Follow {{ profile.user.first_name }} to list to-dos in your following feed. 
+          {% endif %}
+     {% endif %}<br>
 
-{% if todos %}
-<h1>Public to-dos by {{ profile.user.first_name }}.</h1>
-<ul>
-     {% for todo in todos %}
-          <li>
-               <a href="{% url 'viewtodo' todo.id %}">
-               {% if todo.important %}
-               <b>
-               {% endif %}
-               {{ todo.title }}
-               </b>
-               {% if todo.memo %}
-               ~{{todo.memo}}
-               {% endif %}
-               </a>
-               {% if todo.complete_by %}
-               <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-               {% endif %}
-          </li>
-     {% endfor %}
-</ul>
-{% else %}
-<h3>No public to-dos pending.</h3>
-{% endif %}
-{% endblock %}
+     {% if followed %}
+     {% if exclusive %}
+     <h1>For you</h1>
+     <ul>
+          {% for todo in exclusive %}
+               <li>
+                    <a href="{% url 'viewtodo' todo.id %}">
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+                    </a>
+                    {% if todo.complete_by %}
+                    <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+                    {% endif %}
+               </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+          <h3>No exclusive to-dos pending.</h3>
+          {% endif %}
+     {% endif %}
+
+     {% if todos %}
+     <h1>Public to-dos by {{ profile.user.first_name }}.</h1>
+     <ul>
+          {% for todo in todos %}
+               <li>
+                    <a href="{% url 'viewtodo' todo.id %}">
+                    {% if todo.important %}
+                    <b>
+                    {% endif %}
+                    {{ todo.title }}
+                    </b>
+                    {% if todo.memo %}
+                    ~{{todo.memo}}
+                    {% endif %}
+                    </a>
+                    {% if todo.complete_by %}
+                    <br><i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+                    {% endif %}
+               </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h3>No public to-dos pending.</h3>
+     {% endif %}
+     {% endblock %}
+</body>
+</html>

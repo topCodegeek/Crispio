@@ -1,48 +1,59 @@
 {% extends 'todoApp/base.html' %}
-{% block content %}
-<br>
-<hr>
-<h2>{{ todo.title }}</h2>
-{{ todo.memo }}
-{% if todo.complete_by %}
-<i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
-{% endif %}<hr>
-<h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
-          {% if self %}
-               you
-          {% else %}
-              {{ todo.author.name }}
-          {% endif %}
-     </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
-<br>
-{% if instructing %}
-<h1>Send to:</h1>
-<a href="{% url 'currenttodos' %}">Done</a>
-<form method="GET" action="{% url 'send_to' todo.id %}">
-     <input type="search" placeholder="Search for followers" name="search_follower">
-     <button type="submit">Search</button>
-</form>
-<ul>
-     {% for follower in instructing %}
-     <li>
-          <a href="{% url 'userProfile:viewprofile' follower.id %}">
-          {{ follower.name }}
-          </a><br>
-          {% if follower in todo.send_to.all %}
-          <form method='POST' action="{% url 'unsend' todo.id follower.id %}">
-               {% csrf_token %}
-               <button type="submit">Unsend</button>
-          </form>
-          {% else %}
-               <form method='POST' action="{% url 'send' todo.id follower.id %}">
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+     <!--Meta Data-->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     {% block content %}
+     <br>
+     <hr>
+     <h2>{{ todo.title }}</h2>
+     {{ todo.memo }}
+     {% if todo.complete_by %}
+     <i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
+     {% endif %}<hr>
+     <h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
+               {% if self %}
+                    you
+               {% else %}
+               {{ todo.author.name }}
+               {% endif %}
+          </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
+     <br>
+     {% if instructing %}
+     <h1>Send to:</h1>
+     <a href="{% url 'currenttodos' %}">Done</a>
+     <form method="GET" action="{% url 'send_to' todo.id %}">
+          <input type="search" placeholder="Search for followers" name="search_follower">
+          <button type="submit">Search</button>
+     </form>
+     <ul>
+          {% for follower in instructing %}
+          <li>
+               <a href="{% url 'userProfile:viewprofile' follower.id %}">
+               {{ follower.name }}
+               </a><br>
+               {% if follower in todo.send_to.all %}
+               <form method='POST' action="{% url 'unsend' todo.id follower.id %}">
                     {% csrf_token %}
-                    <button type="submit">Send</button>
+                    <button type="submit">Unsend</button>
                </form>
-          {% endif %}
-     </li>
-     {% endfor %}
-</ul>
-{% else %}
-<h1>You currently don't have any followers to send to-dos.</h1>
-{% endif %}
-{% endblock %}
+               {% else %}
+                    <form method='POST' action="{% url 'send' todo.id follower.id %}">
+                         {% csrf_token %}
+                         <button type="submit">Send</button>
+                    </form>
+               {% endif %}
+          </li>
+          {% endfor %}
+     </ul>
+     {% else %}
+     <h1>You currently don't have any followers to send to-dos.</h1>
+     {% endif %}
+     {% endblock %}
+</body>
+</html>
