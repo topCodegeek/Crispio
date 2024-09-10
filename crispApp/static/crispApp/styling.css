@@ -1,5 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+BE+WAL:wght@100..400&family=Playwrite+DK+Uloopet:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 a {
      text-decoration: none;
 }
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+* {
+     margin: 0;
+     padding: 0;
+}
+html {
+     scroll-behavior: smooth;
+}
+body {
+     background-color:#cfdced;
+}
+#navbar-desktop-unauthorised{
+     background-color: white;
+     margin: 7.5px;
+     height: 7vh;
+     border-radius: 12px;
+     border: 0px solid black;
+     box-shadow: 0 2px 10px hsla(220, 32%, 8%, .3);
+}
+
+.nav-brand a {
+     color:black;
+     font-family: 'Nunito';
+     font-style: italic;
+     font-size: 1.7rem;
+     font-weight:700;
+     display:flex;
+     align-items:center;
+     margin-left: 5vw;
+}
+.nav-brand img {
+     height: auto;
+     width: 30px;
+     border: 1px solid #73af2e;
+     border-radius: 50%;
+ }
+.nav-brand span {
+     margin-left: 5px;
+}
+
+nav, .nav-link {
+     display:flex;
+     align-items: center;
+     justify-content:space-between;
+     height: 5.4vh;
+}
+.nav-link {
+     gap:2rem;
+     list-style: none;
+     font-size: 1.3rem;
+     margin-right: 5vw;
+}
+.nav-link a {
+     text-decoration: none;
+     color:dimgray;
+     font-family: 'Montserrat', 'Nunito';
+     font-weight:600;
+}
+.nav-link a:hover{
+     color:black;
+}
+
+@media (max-width: 930px) {
+     .nav-brand a {
+       font-size: 1.425rem; /* smaller font size for small screens */
+     }
+     .nav-link {
+          font-size: 1.16rem;
+     }
+     .nav-brand img {
+          width: 25px;
+          height: auto;
+     }
+}
+@media (max-width: 400px) {
+     .nav-brand a {
+       font-size: 1.225rem; /* smaller font size for small screens */
+     }
+     .nav-link {
+          font-size: 1rem;
+     }
+     .nav-brand img {
+          width: 20px;
+          height: auto;
+     }
+}

@@ -3,8 +3,10 @@
 <html lang="en">
 {% load static %}
 <head>
+     {% block head %}
      <title>Share "{{ todo.title }}" | Crispio</title>
      <!--Meta Data-->
+     {% endblock %}
 </head>
 <body>
      {% block content %}

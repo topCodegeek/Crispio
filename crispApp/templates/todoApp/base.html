@@ -2,8 +2,11 @@
 <html lang="en">
 {% load static %}
 <head>
+     {% block head %}{% endblock %}
+     <link rel="icon" type="image/x-png" href="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
      <!--Styling Import-->
      <link rel="stylesheet" href="{% static 'crispApp/styling.css' %}">
+     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/> <!--Remixicons CSS-->
      <!--Meta Data-->
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +32,19 @@
      </form>
 
      {% else %}
-     <a href="{% url 'connect' %}">Join</a>
+     <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
+          <div class="nav-brand">
+               <a href="{% url 'homepage' %}">
+                    <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
+                    <span>Crispio</span>
+               </a>
+          </div>
+          <ul class="nav-link">
+               <li><a href="{% url 'connect' %}">
+                    <i class="ri-login-box-line"></i> Sign In 
+               </a></li>
+          </ul>
+     </nav>
      <br>
      {% endif %}
 

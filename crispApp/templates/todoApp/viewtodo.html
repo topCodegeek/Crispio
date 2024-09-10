@@ -3,8 +3,10 @@
 <html lang="en">
 {% load static %}
 <head>
-     <title>"{{ todo.title }}": To-do by {{ todo.author.name }} | Crispio</title>
+     {% block head %}
+     <title>'{{ todo.title }}': To-do by {{ todo.author.name }} | Crispio</title>
      <!--Meta Data-->
+     {% endblock %}
 </head>
 <body>
      {% block content %}
