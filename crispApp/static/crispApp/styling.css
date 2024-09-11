@@ -36,7 +36,7 @@ body {
 }
 .nav-brand img {
      height: auto;
-     width: 30px;
+     width: 29px;
      border: 1px solid #73af2e;
      border-radius: 50%;
  }
@@ -68,10 +68,10 @@ nav, .nav-link {
 
 @media (max-width: 930px) {
      .nav-brand a {
-       font-size: 1.425rem; /* smaller font size for small screens */
+       font-size: 1.55rem; /* smaller font size for small screens */
      }
      .nav-link {
-          font-size: 1.16rem;
+          font-size: 1.25rem;
      }
      .nav-brand img {
           width: 25px;
@@ -80,13 +80,13 @@ nav, .nav-link {
 }
 @media (max-width: 400px) {
      .nav-brand a {
-       font-size: 1.225rem; /* smaller font size for small screens */
+       font-size: 1.475rem; /* smaller font size for small screens */
      }
      .nav-link {
-          font-size: 1rem;
+          font-size: 1.15rem;
      }
      .nav-brand img {
-          width: 20px;
+          width: 22px;
           height: auto;
      }
 }
