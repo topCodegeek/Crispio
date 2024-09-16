@@ -33,22 +33,27 @@
      </form>
 
      {% else %}
-     <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
-          <div class="nav-brand">
-               <a href="{% url 'homepage' %}">
-                    <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
-                    <span>Crispio</span>
-               </a>
-          </div>
-          <ul class="nav-link">
-               <li><a href="{% url 'connect' %}">
-                    <i class="ri-login-box-line"></i> Sign In 
-               </a></li>
-          </ul>
-     </nav>
-     <br>
+     <div id="homepage-header">
+          <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
+               <div class="nav-brand">
+                    <a href="{% url 'homepage' %}">
+                         <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
+                         <span>Crispio</span>
+                    </a>
+               </div>
+               <ul class="nav-link">
+                    <li><a href="{% url 'connect' %}">
+                         <i class="ri-login-box-line"></i> Sign In 
+                    </a></li>
+               </ul>
+          </nav>
+     </div>
      {% endif %}
-
+     <!-- #Check for homepage
+     {% if template == 'home' %}
+          home 
+     {% endif %}
+     -->
      {% block content %}{% endblock %}
 </body>
 </html>

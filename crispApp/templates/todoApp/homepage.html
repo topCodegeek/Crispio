@@ -9,15 +9,17 @@
 </head>
 <body>
      {% block content %}
-     <div class="opener-heading">
-          <h1>Create and Assign<br> Tasks</h1>
+     <div class="homepage-container">
+          <div class="opener-heading">
+               <h1>Create and Assign<br> Tasks</h1>
+          </div>
+          <div class="opener-text">
+               <p>Create tasks for yourself. Assign to your students.</p>
+          </div>
+          <a href="{% url 'connect' %}">
+               <button>Get Started</button>
+          </a>
      </div>
-     <div class="opener-text">
-          <p>Create tasks for yourself. Assign to your students.</p>
-     </div>
-     <a href="{% url 'connect' %}">
-          <button>Get Started</button>
-     </a>
      {% endblock %}
 </body>
 </html>

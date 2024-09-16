@@ -16,6 +16,24 @@ body {
      background-color:lightgray; /*Also try bisque*/
 }
 
+#homepage-header {
+     padding-top: 1px;  /* Top and bottom spacing (same as the navbar's top margin) */
+     height: 100vh;
+     width: 100%;
+     background-color: bisque;
+     position: absolute;
+     border: 1px, black;
+}
+.homepage-container {
+     height: 100vh;  /* 100% of the viewport height */
+     display: flex;
+     flex-direction: column;  /* Stack items vertically */
+     justify-content: center; /* Centers items vertically */
+     align-items: center;     /* Centers items horizontally */
+     text-align: center;      /* Center-aligns the text */
+     transform: translateY(-7.5%); /* Moves the content upwards by 20% */
+ }
+
 #navbar-desktop-unauthorised{
      background-color: white;
      margin: 7.5px;
@@ -78,9 +96,14 @@ nav, .nav-link {
     font-size: 2rem;
 }
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+     background-color: #baecb9;
+     border-radius: 5px;
+     margin-top: 5px;
+     padding: 8px 18px;
+     font-size: 20px;
+     font-weight:800;
+     font-family: 'Nunito';
+     cursor: pointer;
 }
 
 @media (max-width: 930px) {

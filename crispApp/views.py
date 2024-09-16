@@ -13,7 +13,8 @@ from .models import Todo, Submission
 def homepage(request):  #New User Required
     if request.user.is_authenticated:
         return redirect('currenttodos')
-    return render (request, 'todoApp/homepage.html')
+    context={'template':'home'}
+    return render (request, 'todoApp/homepage.html', context)
 
 def connect(request):   #New User Required
     if request.user.is_authenticated:
