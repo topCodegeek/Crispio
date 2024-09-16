@@ -13,8 +13,9 @@ html {
      scroll-behavior: smooth;
 }
 body {
-     background-color:#cfdced;
+     background-color:lightgray; /*Also try bisque*/
 }
+
 #navbar-desktop-unauthorised{
      background-color: white;
      margin: 7.5px;
@@ -64,6 +65,22 @@ nav, .nav-link {
 }
 .nav-link a:hover{
      color:black;
+}
+
+.opener-heading{
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 3rem;
+   margin-top: 7.5%;
+}
+.opener-text{
+    font-family:'Nunito';
+    margin-top: 1%;
+    font-size: 2rem;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 @media (max-width: 930px) {
