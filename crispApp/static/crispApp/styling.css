@@ -12,27 +12,9 @@ a {
 html {
      scroll-behavior: smooth;
 }
-body {
-     background-color:lightgray; /*Also try bisque*/
+body{
+     align-content: center;
 }
-
-#homepage-header {
-     padding-top: 1px;  /* Top and bottom spacing (same as the navbar's top margin) */
-     height: 100vh;
-     width: 100%;
-     background-color: bisque;
-     position: absolute;
-     border: 1px, black;
-}
-.homepage-container {
-     height: 100vh;  /* 100% of the viewport height */
-     display: flex;
-     flex-direction: column;  /* Stack items vertically */
-     justify-content: center; /* Centers items vertically */
-     align-items: center;     /* Centers items horizontally */
-     text-align: center;      /* Center-aligns the text */
-     transform: translateY(-7.5%); /* Moves the content upwards by 20% */
- }
 
 #navbar-desktop-unauthorised{
      background-color: white;
@@ -85,6 +67,19 @@ nav, .nav-link {
      color:black;
 }
 
+.homepage-header {
+     margin: 0px auto;
+     padding: 5px;
+     width: 80%;
+     height: 100vh;  /* 100% of the viewport height */
+     display: flex;
+     border: 1px solid black;
+     flex-direction: column;  /* Stack items vertically */
+     justify-content: center; /* Centers items vertically */
+     align-items: center;     /* Centers items horizontally */
+     text-align: center;      /* Center-aligns the text */
+     transform: translateY(-10%); /* Moves the content upwards by 20% */
+ }
 .opener-heading{
    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    font-size: 3rem;
@@ -92,10 +87,13 @@ nav, .nav-link {
 }
 .opener-text{
     font-family:'Nunito';
-    margin-top: 1%;
     font-size: 2rem;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-bottom: 3px;
+    justify-items: center;
 }
-button {
+.opener-button{
      background-color: #baecb9;
      border-radius: 5px;
      margin-top: 5px;
@@ -117,6 +115,16 @@ button {
           width: 25px;
           height: auto;
      }
+     .opener-heading{
+          font-size: 2.0rem;
+     }
+     .opener-text{
+          font-size: 1.5rem;
+     }
+     .opener-button{
+          font-size: 17px;
+
+     }
 }
 @media (max-width: 400px) {
      .nav-brand a {
@@ -128,5 +136,15 @@ button {
      .nav-brand img {
           width: 22px;
           height: auto;
+     }
+     .opener-heading{
+          font-size: 1.5rem;
+     }
+     .opener-text{
+          font-size: 1.35rem;
+     }
+     .opener-button{
+          font-size: 15px;
+
      }
 }

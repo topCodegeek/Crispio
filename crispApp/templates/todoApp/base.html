@@ -12,9 +12,9 @@
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <meta name="google-site-verification" content="hRu4sRjMMx8sd7AGvVKDH7rI9EtMDYs0DlnWFcJX_L8" /> <!--Google site verification-->
 </head>
-<body>
      <!-- Content -->
      {% if user.is_authenticated %}
+<body style="background-color: lightgrey;">
      Logged in as {{ user.first_name }}
 
      <!-- Logout -->
@@ -33,21 +33,20 @@
      </form>
 
      {% else %}
-     <div id="homepage-header">
-          <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
-               <div class="nav-brand">
-                    <a href="{% url 'homepage' %}">
-                         <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
-                         <span>Crispio</span>
-                    </a>
-               </div>
-               <ul class="nav-link">
-                    <li><a href="{% url 'connect' %}">
-                         <i class="ri-login-box-line"></i> Sign In 
-                    </a></li>
-               </ul>
-          </nav>
-     </div>
+<body style="background-color: bisque;">
+     <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
+          <div class="nav-brand">
+               <a href="{% url 'homepage' %}">
+                    <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
+                    <span>Crisper</span>
+               </a>
+          </div>
+          <ul class="nav-link">
+               <li><a href="{% url 'connect' %}">
+                    <i class="ri-login-box-line"></i> Sign In 
+               </a></li>
+          </ul>
+     </nav>
      {% endif %}
      <!-- #Check for homepage
      {% if template == 'home' %}

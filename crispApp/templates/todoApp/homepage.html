@@ -9,7 +9,7 @@
 </head>
 <body>
      {% block content %}
-     <div class="homepage-container">
+     <div class="homepage-header">
           <div class="opener-heading">
                <h1>Create and Assign<br> Tasks</h1>
           </div>
@@ -17,7 +17,7 @@
                <p>Create tasks for yourself. Assign to your students.</p>
           </div>
           <a href="{% url 'connect' %}">
-               <button>Get Started</button>
+               <button class="opener-button">Get Started</button>
           </a>
      </div>
      {% endblock %}
