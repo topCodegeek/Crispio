@@ -1,14 +1,16 @@
 {% extends 'todoApp/base.html' %}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
      {% block head %}
      <title>Crispio: Create and Assign To-Dos</title>
+     <link rel="stylesheet" href="{% static 'crispApp/homepage.css' %}">
      <!--Meta Data-->
      {% endblock %}
 </head>
 <body>
-     {% block content %}
+    {% block content %}
      <div class="homepage-header">
           <div class="opener-heading">
                <h1>Create and Assign<br> Tasks</h1>
@@ -20,6 +22,147 @@
                <button class="opener-button">Get Started</button>
           </a>
      </div>
+     <div class="homepage-content">
+          <section id="about">
+            <!--
+            Try Another bg color for this element.
+            Try Changing the font and size for Heading and <p> text seperately.
+            -->
+               <p class="section__text__p1">A Brief</p>
+               <h1 class="title">Overview</h1>
+               <div class="section-container">
+                 <div class="section__pic-container">
+                   <img
+                     src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                     alt="Profile picture"
+                     class="about-pic"
+                   />
+                 </div>
+                 <div class="about-details-container">
+                   <div class="about-containers">
+                     <div class="details-container">
+                       <h3>Personal To-Dos</h3>
+                       <p>Create private to-dos.<br>Keep track of your tasks for the day.</p>
+                     </div>
+                     <div class="details-container">
+                       <h3>Public To-Dos</h3>
+                       <p>Create public to-dos. <br>Assign task to your students & followers.</p>
+                     </div>
+                   </div>
+                   <div class="text-container">
+                    <p style="font-size: large;">
+                    Whether you're an instructor or a teacher assigning tasks, or a gym trainer sending home workouts,
+                    or it's just you trying to list your to-dos for the day.
+                    <a href="{% url 'createtodos' %}">Create</a> to-dos, set their visibility as 'Personal' - only visible to you, 
+                    'Exclusive' - share exclusively with selective followers or 'Public' - to share with all your followers. 
+                    </p>
+                   </div>
+                 </div>
+               </div>
+             </section>
+             <section id="experience">
+              <p class="section__text__p1">Special Feature</p>
+               <h1 class="title">Public To-Dos</h1>
+               <div class="experience-details-container">
+                 <div class="about-containers">
+                   <div class="details-container">
+                     <h2 class="experience-sub-title">Public</h2>
+                     <div class="article-container">
+                       <article>
+                         <div>
+                            <img
+                            src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                            alt="Experience icon"
+                            class="icon"
+                          />
+                           <h3>Inclusive</h3>
+                           <p>Targets all followers.</p>
+                         </div>
+                       </article>
+                       <article>
+                         <div>
+                          <img
+                          src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                          alt="Experience icon"
+                          class="icon"/>
+                           <h3>Setting</h3>
+                           <p>Visibility set to 'public'.</p>
+                         </div>
+                       </article>
+                       <article>
+                         <div>
+                          <img
+                          src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                          alt="Experience icon"
+                          class="icon"/>
+                           <h3>Visibility</h3>
+                           <p>Listed in following feed of all your followers.</p>
+                         </div>
+                       </article>
+                       <article>
+                        <div>
+                         <img
+                         src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                         alt="Experience icon"
+                         class="icon"/>
+                          <h3>Use Cases</h3>
+                          <p>Assign <u>generalised</u> plans, tasks, plans, workouts, etc for all followers.</p>
+                        </div>
+                      </article>
+                     </div>
+                   </div>
+                   <div class="details-container">
+                     <h2 class="experience-sub-title">Exclusive</h2>
+                     <div class="article-container">
+                       <article>
+                         <div>
+                          <img
+                          src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                          alt="Experience icon"
+                          class="icon"/>
+                           <h3>Selective</h3>
+                           <p>Targets your selected followers.</p>
+                         </div>
+                       </article>
+                       <article>
+                         <div>
+                          <img
+                          src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                          alt="Experience icon"
+                          class="icon"/>
+                           <h3>Setting</h3>
+                           <p>Visibility set to 'exclusive'.</p>
+                         </div>
+                       </article>
+                       <article>
+                         <div>
+                          <img
+                          src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                          alt="Experience icon"
+                          class="icon"/>
+                           <h3>Visibility</h3>
+                           <p>Listed in following feed of your selected followers.</p>
+                         </div>
+                       </article>
+                       <article>
+                        <div>
+                         <img
+                         src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"
+                         alt="Experience icon"
+                         class="icon"/>
+                          <h3>Use Cases</h3>
+                          <p>Assign <u>selected</u> followers - plans, tasks, workouts, etc curated for them.</p>
+                        </div>
+                      </article>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </section>
+             <div style="text-align: center;">
+             <h4>Design Inpired By</h4><p><a href="https://github.com/Ade-mir/html-css-js-portfolio-tutorial-2">'Responsive Portfolio Website Tutorial'</a></p>
+             </div>        
+      </div>
      {% endblock %}
 </body>
 </html>

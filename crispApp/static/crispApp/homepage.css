@@ -1,0 +1,231 @@
+.homepage-header {
+     margin: 0px auto;
+     padding: 0px;
+     width: 85%;
+     height: 91vh;  /* 100% of the viewport height */
+     display: flex;
+     border: 1px solid black;
+     flex-direction: column;  /* Stack items vertically */
+     justify-content: center; /* Centers items vertically */
+     align-items: center;     /* Centers items horizontally */
+     text-align: center;      /* Center-aligns the text */
+     transform: translateY(-7.5%); /* Moves the content upwards by 20% */
+ }
+.opener-heading{
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 3rem;
+   margin-top: 7.5%;
+}
+.opener-text{
+    font-family:'Nunito';
+    font-size: 2rem;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-bottom: 3px;
+    justify-items: center;
+}
+.opener-button{
+     background-color: #baecb9;
+     border-radius: 5px;
+     margin-top: 5px;
+     padding: 8px 18px;
+     font-size: 20px;
+     font-weight:800;
+     font-family: 'Nunito';
+     cursor: pointer;
+}
+.homepage-content {
+     background-color: lightgray;
+     width: 100%;
+     border-top-right-radius: 10px;
+     border-top-left-radius: 10px;
+     box-shadow: 0 2px 10px grey;
+}
+body {
+     font-family: 'Nunito';
+}
+@media (max-width: 930px) {
+     .opener-heading{
+          font-size: 2rem;
+     }
+     .opener-text{
+          font-size: 1.7rem;
+     }
+     .opener-button{
+          font-size: 17px;
+
+     }
+}
+@media (max-width: 450px) {
+     .homepage-header {
+          height: 75vh;  /* 100% of the viewport height */
+          transform: translateY(-2%); /* Moves the content upwards by 20% */
+     }
+     .opener-heading{
+          font-size: 1.5rem;
+     }
+     .opener-text{
+          font-size: 1.3rem;
+     }
+     .opener-button{
+          font-size: 15px;
+
+     }
+}
+
+section {
+     padding-top: 3vh;
+     height: 90vh;
+     margin: 0 10rem;
+     box-sizing: border-box;
+     min-height: fit-content;
+   }
+   
+   .section-container {
+     display: flex;
+   }
+   
+   /* PROFILE SECTION */
+   
+   #profile {
+     display: flex;
+     justify-content: center;
+     gap: 5rem;
+     height: 80vh;
+   }
+   
+   .section__pic-container {
+     display: flex;
+     height: 400px;
+     width: 400px;
+     margin: auto 0;
+   }
+   
+   .section__text {
+     align-self: center;
+     text-align: center;
+   }
+   
+   .section__text p {
+     font-weight: 600;
+   }
+   
+   .section__text__p1 {
+     text-align: center;
+   }
+   
+   .section__text__p2 {
+     font-size: 1.75rem;
+     margin-bottom: 1rem;
+   }
+   
+   .title {
+     font-size: 3rem;
+     text-align: center;
+   }
+   
+   #socials-container {
+     display: flex;
+     justify-content: center;
+     margin-top: 1rem;
+     gap: 1rem;
+   }
+   
+   /* ICONS */
+   
+   .icon {
+     cursor: pointer;
+     height: 2rem;
+   }
+   
+   /* ABOUT SECTION */
+   
+   #about {
+     position: relative;
+   }
+   
+   .about-containers {
+     gap: 2rem;
+     margin-bottom: 2rem;
+     margin-top: 2rem;
+   }
+   
+   .about-details-container {
+     justify-content: center;
+     flex-direction: column;
+   }
+   
+   .about-containers,
+   .about-details-container {
+     display: flex;
+   }
+   
+   .about-pic {
+     border-radius: 2rem;
+   }
+   
+   .arrow {
+     position: absolute;
+     right: -5rem;
+     bottom: 2.5rem;
+   }
+   
+   .details-container {
+     padding: 1.5rem;
+     flex: 1;
+     background: white;
+     border-radius: 2rem;
+     border: rgb(53, 53, 53) 0.1rem solid;
+     border-color: rgb(163, 163, 163);
+     text-align: center;
+   }
+   
+   .section-container {
+     gap: 4rem;
+     height: 80%;
+   }
+   
+   .section__pic-container {
+     height: 400px;
+     width: 400px;
+     margin: auto 0;
+   }
+   
+   /* EXPERIENCE SECTION */
+   
+   #experience {
+     position: relative;
+   }
+   
+   .experience-sub-title {
+     color: rgb(85, 85, 85);
+     font-weight: 600;
+     font-size: 1.75rem;
+     margin-bottom: 2rem;
+   }
+   
+   .experience-details-container {
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+   }
+   
+   .article-container {
+     display: flex;
+     text-align: initial;
+     flex-wrap: wrap;
+     flex-direction: row;
+     gap: 2.5rem;
+     justify-content: space-around;
+   }
+   
+   article {
+     display: flex;
+     width: 10rem;
+     justify-content: space-around;
+     gap: 0.5rem;
+   }
+   
+   article .icon {
+     cursor: default;
+   }

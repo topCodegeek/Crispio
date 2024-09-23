@@ -67,43 +67,6 @@ nav, .nav-link {
      color:black;
 }
 
-.homepage-header {
-     margin: 0px auto;
-     padding: 5px;
-     width: 80%;
-     height: 100vh;  /* 100% of the viewport height */
-     display: flex;
-     border: 1px solid black;
-     flex-direction: column;  /* Stack items vertically */
-     justify-content: center; /* Centers items vertically */
-     align-items: center;     /* Centers items horizontally */
-     text-align: center;      /* Center-aligns the text */
-     transform: translateY(-10%); /* Moves the content upwards by 20% */
- }
-.opener-heading{
-   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   font-size: 3rem;
-   margin-top: 7.5%;
-}
-.opener-text{
-    font-family:'Nunito';
-    font-size: 2rem;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-bottom: 3px;
-    justify-items: center;
-}
-.opener-button{
-     background-color: #baecb9;
-     border-radius: 5px;
-     margin-top: 5px;
-     padding: 8px 18px;
-     font-size: 20px;
-     font-weight:800;
-     font-family: 'Nunito';
-     cursor: pointer;
-}
-
 @media (max-width: 930px) {
      .nav-brand a {
        font-size: 1.55rem; /* smaller font size for small screens */
@@ -114,16 +77,6 @@ nav, .nav-link {
      .nav-brand img {
           width: 25px;
           height: auto;
-     }
-     .opener-heading{
-          font-size: 2.0rem;
-     }
-     .opener-text{
-          font-size: 1.5rem;
-     }
-     .opener-button{
-          font-size: 17px;
-
      }
 }
 @media (max-width: 400px) {
@@ -136,15 +89,5 @@ nav, .nav-link {
      .nav-brand img {
           width: 22px;
           height: auto;
-     }
-     .opener-heading{
-          font-size: 1.5rem;
-     }
-     .opener-text{
-          font-size: 1.35rem;
-     }
-     .opener-button{
-          font-size: 15px;
-
      }
 }

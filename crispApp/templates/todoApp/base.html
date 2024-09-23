@@ -5,7 +5,8 @@
      {% block head %}{% endblock %}
      <link rel="icon" type="image/x-png" href="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
      <!--Styling Import-->
-     <link rel="stylesheet" href="{% static 'crispApp/styling.css' %}">
+     <link rel="stylesheet" href="{% static 'crispApp/styling.css' %}"/>
+     <link rel="stylesheet" href="{% static 'crispApp/mediaqueries.css' %}"/>
      <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/> <!--Remixicons CSS-->
      <!--Meta Data-->
      <meta charset="utf-8">
@@ -38,7 +39,7 @@
           <div class="nav-brand">
                <a href="{% url 'homepage' %}">
                     <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
-                    <span>Crisper</span>
+                    <span>Crispio</span>
                </a>
           </div>
           <ul class="nav-link">
@@ -47,6 +48,7 @@
                </a></li>
           </ul>
      </nav>
+     <br>
      {% endif %}
      <!-- #Check for homepage
      {% if template == 'home' %}
