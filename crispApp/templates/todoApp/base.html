@@ -38,7 +38,7 @@
      <nav id="navbar-desktop-unauthorised"> <!--No login desktop navbar-->
           <div class="nav-brand">
                <a href="{% url 'homepage' %}">
-                    <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
+                    <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}"/>
                     <span>Crispio</span>
                </a>
           </div>
@@ -55,6 +55,16 @@
           home 
      {% endif %}
      -->
+
+<div style="min-height: 100vh;">
+     <!-- Insert Block -->
      {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<br>
+</div>
+
 </body>
 </html>

@@ -1,19 +1,31 @@
 {% extends 'todoApp/base.html' %}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
      {% block head %}
      <title>Sign-In to Crispio</title>
+     <link rel="stylesheet" href="{% static 'crispApp/connect.css' %}">
      <!--Meta Data-->
      {% endblock %}
 </head>
 <body>
      {% load socialaccount %}
-
      {% block content %}
-     <a href="{% provider_login_url 'google' %}?next=/userprofile/create/">Continue with Google</a><br>
-     <a href="{% provider_login_url 'github' %}?next=/userprofile/create/">Continue with Github</a><br>
-     Your email is taken to avoid creation of duplicate accounts.
+     <div class="login-wrapper">
+          <img src="{% static 'crispApp/Crispio-Round-NoBG.png' %}" class="logo"/>
+          <h1>Sign in to Crispio</h1>
+          <h4>Use any of the below services to sign-in.</h4>
+          <a href="{% provider_login_url 'google' %}?next=/userprofile/create/">
+               <button><img src="{% static 'crispApp/google.png' %}"/>Continue with Google</button>
+          </a>
+          <a href="{% provider_login_url 'github' %}?next=/userprofile/create/">
+               <button><img src="{% static 'crispApp/github.png' %}"/>Continue with Github</button>
+          </a>
+          <p>Your email is taken to avoid creation of duplicate accounts.</p>
+          <p><a target="_blank" href="https://icons8.com/icon/V5cGWnc9R4xj/google">Google</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></p>
+     </div>
+
      {% endblock %}
 </body>
 </html>

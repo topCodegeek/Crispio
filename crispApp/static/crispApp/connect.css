@@ -1,0 +1,88 @@
+.login-wrapper{
+     display:flex;
+     background-color: azure;
+     box-shadow: 0 1px 7px hsla(220, 30%, 8%, .3);
+     margin: 0px auto;
+     padding: 0px;
+     width: 82.5%;
+     height: 71vh;  /* 100% of the viewport height */
+     border-radius: 7.5px;
+     flex-direction: column;  /* Stack items vertically */
+     align-items: center;     /* Centers items horizontally */
+     text-align: center;      /* Center-aligns the text */
+     transform: translateY(10%); /* Moves the content upwards by 20% */
+}
+.login-wrapper .logo{
+     width:75px;
+     margin-top: 2rem;
+     margin-bottom: 0.75rem;
+}
+.login-wrapper h1{
+     margin-left: 15px;
+     margin-right: 15px;
+     font-family: 'Montserrat';
+     font-size: 2.25rem;
+}
+.login-wrapper h4{
+     font-family: 'Nunito';
+     font-weight: 600;
+     font-size: 1rem;
+     margin-top:10px;
+     margin-bottom: 75px;
+     margin-left: 25px;
+     margin-right: 25px;
+}
+.login-wrapper button{
+     width: 75vw;
+     padding: 10px 0px;
+     display:flex;
+     align-items: center;
+     justify-content:center;
+     margin:5px 0;
+     border-radius: 20px;
+     background-color: white;
+     border: 1px solid #999;
+     font-weight: 650;
+     font-size: 1.4rem;
+     font-family: 'Nunito';
+     cursor: pointer;
+}
+.login-wrapper button img{
+     margin-right: 10px;
+     width:35px;
+}
+.login-wrapper p{
+     margin-left: 25px;
+     margin-right: 25px;
+}
+@media (max-width: 930px) {
+     .login-wrapper .logo {
+          width: 65px
+     }
+     .login-wrapper h1{
+          font-size: 2rem;
+     }
+     .login-wrapper button{
+          font-size: 1.2rem;
+     }
+     .login-wrapper button img{
+          width: 30px;
+     }
+}
+@media (max-width: 500px) {
+     .login-wrapper .logo {
+          width: 50px
+     }
+     .login-wrapper h1{
+          font-size: 1.75rem;
+     }
+     .login-wrapper button{
+          font-size: 0.9rem;
+     }
+     .login-wrapper button img{
+          width: 25px;
+     }
+     .login-wrapper h4{
+          font-size: 0.9rem;
+     }
+}
