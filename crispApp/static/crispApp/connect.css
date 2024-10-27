@@ -6,29 +6,29 @@
      padding: 0px;
      width: 82.5%;
      height: 71vh;  /* 100% of the viewport height */
-     border-radius: 7.5px;
+     border-radius: 10px;
      flex-direction: column;  /* Stack items vertically */
      align-items: center;     /* Centers items horizontally */
      text-align: center;      /* Center-aligns the text */
      transform: translateY(10%); /* Moves the content upwards by 20% */
 }
 .login-wrapper .logo{
-     width:75px;
-     margin-top: 2rem;
+     width:80px;
+     margin-top: 2.1rem;
      margin-bottom: 0.75rem;
 }
 .login-wrapper h1{
      margin-left: 15px;
      margin-right: 15px;
      font-family: 'Montserrat';
-     font-size: 2.25rem;
+     font-size: 2.4rem;
 }
 .login-wrapper h4{
      font-family: 'Nunito';
      font-weight: 600;
-     font-size: 1rem;
+     font-size: 1.1rem;
      margin-top:10px;
-     margin-bottom: 75px;
+     margin-bottom: 70px;
      margin-left: 25px;
      margin-right: 25px;
 }
@@ -52,6 +52,9 @@
      width:35px;
 }
 .login-wrapper p{
+     font-family: 'Nunito';
+     font-weight: 600;
+     font-size: 1rem;
      margin-left: 25px;
      margin-right: 25px;
 }
@@ -83,6 +86,25 @@
           width: 25px;
      }
      .login-wrapper h4{
-          font-size: 0.9rem;
+          font-size: 0.95rem;
+     }
+     .login-wrapper p{
+          font-size: 0.95rem;
+     }
+}
+@media (max-width: 328px) {
+     .login-wrapper{
+          height: 72vh;
+     }
+     .login-wrapper h4{
+          margin-bottom: 55px;
+     }
+}
+@media (max-width: 328px) {
+     .login-wrapper{
+          height: 72vh;
+     }
+     .login-wrapper h4{
+          margin-bottom: 55px;
      }
 }

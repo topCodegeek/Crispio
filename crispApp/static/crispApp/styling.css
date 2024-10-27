@@ -17,10 +17,11 @@ body{
 }
 
 #navbar-desktop-unauthorised{
-     background-color: white;
-     margin: 7.5px;
+     /* background-color: white; */
+     /* margin: 7.5px; */
+     /* border-radius: 12px */
+     background-color: azure;
      height: 7vh;
-     border-radius: 12px;
      border: 0px solid black;
      box-shadow: 0 2px 10px hsla(220, 32%, 8%, .3);
 }
