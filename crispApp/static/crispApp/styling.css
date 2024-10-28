@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+BE+WAL:wght@100..400&family=Playwrite+DK+Uloopet:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 a {
      text-decoration: none;
 }
@@ -68,20 +69,84 @@ nav, .nav-link {
      color:black;
 }
 
-.footer{
+footer .container{
      border-top-left-radius: 10px;
      border-top-right-radius: 10px;
-     background-color:black;
-     display:flex;
-     align-items: center;
-     font-family: 'Nunito';
+     background-color: black;
 }
-.footer ul{
+.row{
+     display: flex;
+     justify-content:space-around;
+     padding: 20px 100px;
+}
+.footer-col ul{
      list-style: none;
-     font-family:Arial, Helvetica, sans-serif;
-     color: white;
+}
+.footer-col h4{
+     color:bisque;
+     margin-bottom: 5px;
+     font-size: 1.6rem;
+     position: relative;
+     font-family: "Poppins", sans-serif;
 }
 
+.footer-col ul li{
+     padding: 10px 0;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.footer-col ul li a{
+     color:aliceblue;
+     text-decoration: none;
+     font-size: 1rem;
+     opacity: 0.7;
+     transition: 0.5s;
+}
+.footer-col ul li a:hover{
+     opacity: 1;
+}
+.footer-col input{
+     border: none;
+     width: 250px;
+     height: 45px;
+     display: block;
+     padding-left: 20px;
+     margin: 14px 0;
+}
+.col p{
+     text-align: center;
+     color:bisque;
+     font-family: "Poppins", sans-serif;
+}
+.row hr{
+     background-color: bisque;
+     opacity: 01;
+}
+ 
+@media (max-width: 600px){
+     footer .row{
+          flex-direction: column;
+          padding: 10px 20px;
+     }
+     .footer-col h4{
+          color:bisque;
+          margin-bottom: 3px;
+          font-size: 1.3rem;
+     }
+     .footer-col ul li a{
+          font-size: 0.9rem;
+     }
+     footer .footer-col ul{
+          margin-left: 20px;
+          margin-bottom: 20px;
+     }
+     .footer-col input{
+          width: 100%;
+     }
+     .col p{
+          font-size: 0.8rem;
+          padding: 2px;
+     }
+}
 @media (max-width: 900px) {
      .nav-brand a {
        font-size: 1.55rem; /* smaller font size for small screens */
