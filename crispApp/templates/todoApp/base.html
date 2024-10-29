@@ -5,8 +5,10 @@
      {% block head %}{% endblock %}
      <link rel="icon" type="image/x-png" href="{% static 'crispApp/Crispio-Round-NoBG.png' %}">
      <!--Styling Import-->
-     <link rel="stylesheet" href="{% static 'crispApp/styling.css' %}"/>
-     <link rel="stylesheet" href="{% static 'crispApp/mediaqueries.css' %}"/>
+     <link rel="stylesheet" href="{% static 'crispApp/styling/styling.css' %}"/>
+     <link rel="stylesheet" href="{% static 'crispApp/styling/homepage.css' %}">
+     <link rel="stylesheet" href="{% static 'crispApp/styling/connect.css' %}">
+     <link rel="stylesheet" href="{% static 'crispApp/styling/mediaqueries.css' %}"/>
      <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/> <!--Remixicons CSS-->
      <!--Meta Data-->
 
@@ -57,9 +59,9 @@
           home 
      {% endif %}
      -->
-<div style="min-height: 100vh;">
-     {% block content %}{% endblock %}
-</div>
+     <div style="min-height: 100vw;">
+          {% block content %}{% endblock %}
+     </div>
 
      <footer>
           <div class="container">
@@ -92,6 +94,5 @@
               </div>
           </div>
       </footer>
-
 </body>
 </html>

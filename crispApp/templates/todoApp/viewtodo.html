@@ -15,7 +15,7 @@
      {% if access %}
 
      <hr>
-          <h1>{{ todo.title }}</h1>
+          <h1  class="heading">{{ todo.title }}</h1>
           {{ todo.memo }}<hr>
           <h3>Authored by <a href="{% url 'userProfile:viewprofile' todo.author.id %}">
                     {% if self %}

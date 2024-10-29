@@ -12,7 +12,7 @@
      {% block content %}
      <br>
      <hr>
-     <h2>{{ todo.title }}</h2>
+     <h2 class="heading">{{ todo.title }}</h2>
      {{ todo.memo }}
      {% if todo.complete_by %}
      <i>~Complete by {{ todo.complete_by|date:'dS M Y' }}.</i>
@@ -26,7 +26,7 @@
           </a> on {{ todo.created|date:'dS M Y H:i' }}</h3>
      <br>
      {% if instructing %}
-     <h1>Send to:</h1>
+     <h1 class="heading">Send to:</h1>
      <a href="{% url 'currenttodos' %}">Done</a>
      <form method="GET" action="{% url 'send_to' todo.id %}">
           <input type="search" placeholder="Search for followers" name="search_follower">

@@ -52,6 +52,7 @@ def viewprofile(request, profile_id):
         return redirect ('userProfile:createprofile')
      profile = get_object_or_404(UserProfile, pk=profile_id)
      todos = Todo.objects.exclude(id__in=Submission.objects.filter(submitter=request_profile).values('todo_id')).filter(visibility='Public', author=profile).order_by('-created')
+     public_submissions_count = Submission.objects.filter(submitter=profile).filter(todo__visibility='Public').count()
      exclusive = Todo.objects.filter(author=profile, visibility='Exclusive', send_to=request_profile).order_by('-created').exclude(id__in=Submission.objects.filter(submitter=profile).values('todo_id'))
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
@@ -64,7 +65,7 @@ def viewprofile(request, profile_id):
      else:
           followed = False
           self = False
-     context = {'exclusive':exclusive, 'todos': todos, 'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following}
+     context = {'count':public_submissions_count, 'exclusive':exclusive, 'todos': todos, 'profile':profile,'followed':followed,'self':self, 'instructing':instructing,'following':following}
      return render (request, 'userProfile/viewprofile.html', context)
 
 @login_required #Profile needed
@@ -74,10 +75,11 @@ def viewself(request):
      except ObjectDoesNotExist:
         return redirect ('userProfile:createprofile')
      todos = Todo.objects.filter(author=profile, visibility='Public').order_by('-created')
+     public_submissions_count = Submission.objects.filter(submitter=profile).filter(todo__visibility='Public').count()
      exclusive = Todo.objects.filter(author=profile, visibility='Exclusive').order_by('-created')
      instructing = profile.instructing.all().count()
      following = profile.following.all().count()
-     context = {'profile':profile, 'following':following,'instructing':instructing, 'todos':todos, 'exclusive':exclusive}
+     context = {'count':public_submissions_count,'profile':profile, 'following':following,'instructing':instructing, 'todos':todos, 'exclusive':exclusive}
      return render (request, 'userProfile/viewself.html', context)
 
 

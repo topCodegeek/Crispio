@@ -11,7 +11,7 @@
 <body>
      {% block content %}
      {{ error }}
-     <h1>Edit or Reassign</h1>
+     <h1 class="heading">Edit or Reassign</h1>
      <form method="POST">
           {% csrf_token %}
           {{ form.as_p }}

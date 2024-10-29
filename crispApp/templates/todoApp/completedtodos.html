@@ -11,7 +11,7 @@
      {% block content %}
 
      {% if submissions %}
-     <h1>Completed To-dos:</h1>
+     <h1 class="heading">Completed To-dos:</h1>
      <ul>
           {% for submission in submissions %}
           <li>
@@ -31,7 +31,7 @@
           {% endfor %}
      </ul>
      {% else %}
-     <h3>You haven't completed any to-dos.</h3>
+     <h3 class="heading">You haven't completed any to-dos.</h3>
      {% endif %}
 
      {% endblock %}

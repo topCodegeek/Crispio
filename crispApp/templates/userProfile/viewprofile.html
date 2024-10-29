@@ -11,29 +11,45 @@
 <body>
      {% block content %}
 
-     <img src="{{ profile.pfp_url }}">
-     <h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-     <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
-     <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
-
-     {% if followed %}
-     <form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
-          {% csrf_token %}
-     <button type="submit">Unfollow</button>
-     </form>
-
-     {% else %}
-          {% if self %}
-          <!-- Self -->
-
-          {% else %}
-               <form method="POST" action="{% url 'userProfile:follow' profile.id %}">
-                    {% csrf_token %}
-               <button type="submit">Follow</button>
-               </form>
-               Follow {{ profile.user.first_name }} to list to-dos in your following feed. 
-          {% endif %}
-     {% endif %}<br>
+          <div class="section__pic-container">
+               <img src="{{ profile.pfp_url }}" alt="{{ profile.name }} profile picture" />
+          </div>
+          <div class="section__text">
+               <h1 class="title">
+                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                    {% if profile.verified %}
+                    <img src="{% static 'crispApp/verified.png' %}">
+                    {% endif %}
+               </h1>
+               <p class="section__text__p2">Completed {{ count }} public to-do{{ count|pluralize }}.</p>
+               <div id="socials-container">
+                    <p class="section__text__p2">
+                         <a style='color: black; text-decoration: underline;' href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a>
+                    </p>
+                    <p class="section__text__p2">
+                         <a style='color: black; text-decoration: underline;' href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a>
+                    </p>
+               </div>
+               <div class="btn-container">
+                    {% if followed %}
+                         <form method="POST" action="{% url 'userProfile:unfollow' profile.id %}">
+                              {% csrf_token %}
+                              <button class="opener-button" style="color: black; background-color: white;">Unfollow</button>
+                         </form>
+                    {% else %}
+                              {% if self %}
+                              <!-- Self -->
+                    
+                              {% else %}
+                                   <form method="POST" action="{% url 'userProfile:follow' profile.id %}">
+                                        {% csrf_token %}
+                                        <button class="opener-button" style="color: black; background-color: white;">Follow</button>
+                                   </form>
+                              {% endif %}
+                    {% endif %}
+               </div>
+          </div>
+     </section>
 
      {% if followed %}
      {% if exclusive %}
@@ -57,8 +73,6 @@
                </li>
           {% endfor %}
      </ul>
-     {% else %}
-          <h3>No exclusive to-dos pending.</h3>
           {% endif %}
      {% endif %}
 
@@ -83,9 +97,8 @@
                </li>
           {% endfor %}
      </ul>
-     {% else %}
-     <h3>No public to-dos pending.</h3>
      {% endif %}
      {% endblock %}
+
 </body>
 </html>

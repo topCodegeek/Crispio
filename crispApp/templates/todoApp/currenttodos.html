@@ -13,7 +13,7 @@
      {{ error }}
      <br>
      {% if todos %}
-     <h1>These are your private to-dos</h1>
+     <h1 class="heading">These are your private to-dos</h1>
      <ul>
           {% for todo in todos %}
           <li>
@@ -33,6 +33,7 @@
      {% else %}
      <h3>You haven't created private to-dos. Create one to list it here.</h3>
      {% endif %}
+
      {% endblock %}
 </body>
 </html>

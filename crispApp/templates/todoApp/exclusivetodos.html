@@ -13,7 +13,7 @@
      {{ error }}
      <br>
      {% if todos %}
-     <h1>Following</h1>
+     <h1 class="heading">Following</h1>
      <ul>
           {% for todo in todos %}
                <a href="{% url 'viewtodo' todo.id %}">
@@ -32,7 +32,7 @@
           {% endfor %}
      </ul>
      {% else %}
-     <h3>No new to-dos by your instructors. They will be listed here if available.</h3>
+     <h3 class="heading">No new to-dos by your instructors. They will be listed here if available.</h3>
      {% endif %}
      {% endblock %}
 </body>

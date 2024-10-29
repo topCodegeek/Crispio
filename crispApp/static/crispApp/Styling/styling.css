@@ -121,7 +121,12 @@ footer .container{
      background-color: bisque;
      opacity: 01;
 }
- 
+.heading {
+     margin: 5px;
+     font-family: 'Montserrat';
+     font-size: 2.5rem;
+}
+
 @media (max-width: 600px){
      footer .row{
           flex-direction: column;
@@ -148,6 +153,9 @@ footer .container{
      }
 }
 @media (max-width: 900px) {
+     .heading {
+          font-size: 2rem;
+     }
      .nav-brand a {
        font-size: 1.55rem; /* smaller font size for small screens */
      }
@@ -160,6 +168,9 @@ footer .container{
      }
 }
 @media (max-width: 500px) {
+     .heading {
+          font-size: 1.5rem;
+     }
      .nav-brand a {
        font-size: 1.475rem; /* smaller font size for small screens */
      }

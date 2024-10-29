@@ -12,7 +12,7 @@
      {% block content %}
 
      {% if profiles %}
-     <h1>Here's what I found:</h1>
+     <h1 class="heading">Here's what I found:</h1>
      <ul>
           {% for profile in profiles %}
           <a href="{% url 'userProfile:viewprofile' profile.id %}">
@@ -21,7 +21,7 @@
           {% endfor %}
      </ul>
      {% else %}
-     <h1>Hey, I didn't find any user.</h1>
+     <h1 class="heading">Hey, I didn't find any user.</h1>
      {% endif %}
      {% endblock %}
 </body>

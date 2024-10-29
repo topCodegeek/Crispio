@@ -11,14 +11,33 @@
 <body>
      {% block content %}
 
-     <img src="{{ profile.pfp_url }}">
-     <h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-     <a href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a><br>
-     <a href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a><br>
-     <a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a>
-     <br>
+     <section id="profile">
+          <div class="section__pic-container">
+               <img src="{{ profile.pfp_url }}" alt="{{ profile.name }}profile picture" />
+          </div>
+          <div class="section__text">
+               <h1 class="title">
+                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                    {% if profile.verified %}
+                    <img src="{% static 'crispApp/verified.png' %}">
+                    {% endif %}
+               </h1>
+               <p class="section__text__p2">Completed {{ count }} public to-do{{ count|pluralize }}.<br>
+               </p>
+               <div id="socials-container">
+                    <p class="section__text__p2">
+                         <a style='color: black; text-decoration: underline;' href="{% url 'userProfile:instructing' profile.id %}">Instructing: {{ instructing }}</a>
+                    </p>
+                    <p class="section__text__p2">
+                         <a style='color: black; text-decoration: underline;' href="{% url 'userProfile:following' profile.id %}">Following: {{ following }}</a>
+                    </p>
+               </div>
+               <p class="section__text__p2"><a href="{% url 'userProfile:viewprofile' profile.id %}">View Your Public Profile</a></p>
+          </div>
+     </section>
+
      {% if todos %}
-     <h1>Your Public To-dos</h1>
+     <h1 class="heading">Your Public To-dos</h1>
      <ul>
           {% for todo in todos %}
                <li>
@@ -39,11 +58,9 @@
 
           {% endfor %}
      </ul>
-     {% else %}
-     <h3>No public to-dos.</h3>
      {% endif %}
      {% if exclusive %}
-     <h1>Exclusive To-dos</h1>
+     <h1 class="heading">Exclusive To-dos</h1>
      <ul>
           {% for todo in exclusive %}
                <li>
@@ -63,8 +80,6 @@
                </li>
           {% endfor %}
      </ul>
-     {% else %}
-     <h3>No exclusive to-dos.</h3>
      {% endif %}
 
      {% endblock %}
