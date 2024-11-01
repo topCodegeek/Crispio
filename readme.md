@@ -16,8 +16,3 @@ Search results.
 Self profile.
 
 *Add icons as much as possible*.
-
-Monetisation:
-About page (*optional*)
-Green element just above footer having my photo. Title - "From the **Developer**". Some content saying, "A crisp project ..(personal review from me).. Finding this website usefull? Do consider showing support! ('surely' - optional)".
-White, attractive icon(ic) buttons - <3 Show Support (buymeacoffee.com), </> Get Source Code (paid source code on buymeacoffee.com).
