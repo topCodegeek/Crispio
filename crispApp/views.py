@@ -9,6 +9,10 @@ from .forms import TodoForm
 from .models import Todo, Submission
 # Create your views here.
 
+#Discord Verification
+def discord_verif(request):
+    return HttpResponse('dh=232d2eea183488e33e1ea0453018452442f062d5')
+
 #New Visitors
 def homepage(request):  #New User Required
     if request.user.is_authenticated:
